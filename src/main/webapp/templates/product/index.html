@@ -37,8 +37,16 @@
 </div>
 
 <div class="container">
+    <div class="card list-group-item">
+        <select class="btn btn-success">
+            <option value="Filter">Some filter</option>
+        </select>
+        <a class="btn btn-success" href="#">Submit</a>
+        <a class="btn btn-success" href="/cart">Check cart</a>
+        <a class="btn btn-success" href="#">Logout</a>
+    </div>
     <div class="card" th:each="cat : ${category}">
-        <strong th:text="${cat.name}">Category Title</strong>
+        <br><strong th:text="${cat.name}">Category Title</strong><br>
 
         <div id="products" class="row">
             <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}">
@@ -54,7 +62,7 @@
                             <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
                         </div>
                         <div class="card-text">
-                            <a class="btn btn-success" href="#">Add to cart</a>
+                            <a class="btn btn-success" href="/cart">Add to cart</a>
                         </div>
                     </div>
                 </div>
