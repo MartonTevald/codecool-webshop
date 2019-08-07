@@ -12,7 +12,11 @@ public class Cart {
         return INSTANCE;
     }
 
-    List<Product> cart = new ArrayList<>();
+    public List<Product> getCart() {
+        return cart;
+    }
+
+    private List<Product> cart = new ArrayList<>();
 
     void addToCart(Product product){
         cart.add(product);
