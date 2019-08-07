@@ -25,35 +25,39 @@ public class CartController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ProductDao productDataStore = ProductDaoMem.getInstance();
-        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-        context.setVariable("category", productCategoryDataStore.getAll());
+        ProductDao productDataStore = ProductDaoMem.getInstance();
+        List<Product> pod = Cart.getInstance().getProducts();
+
+
+        context.setVariable("cartHash", Cart.getInstance().getCart());
+        context.setVariable("cart", pod);
         context.setVariable("products", productDataStore.getAll());
-        // // Alternative setting of the template context
-        // Map<String, Object> params = new HashMap<>();
-        // params.put("category", productCategoryDataStore.find(1));
-        // params.put("products", productDataStore.getBy(productCategoryDataStore.find(1)));
-        // context.setVariables(params);
+
+        context.setVariable("sum", Cart.getInstance().getSumOfPrice());
+
         engine.process("product/cart.html", context, resp.getWriter());
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         ProductDao productDataStore = ProductDaoMem.getInstance();
         List<Product> products = productDataStore.getAll();
 
         Cart cart = Cart.getInstance();
+        int productID = Integer.parseInt(req.getParameter("addToCartButton"));
+        Product prod = productDataStore.find(productID);
 
-        String cartItem = req.getParameter("addtocartbutton");
+        cart.addToCart(prod);
 
-        for(Product product:products){
-            if (product.getName().equals(cartItem)){
-                cart.getCart().add(product);
-            }
-        }
+//        for (Product product : products) {
+//            if (product.getName().equals(cartItem)) {
+////                cart.getCart().get()
+//            }
+//        }
 
         resp.sendRedirect(req.getContextPath() + "/");
 

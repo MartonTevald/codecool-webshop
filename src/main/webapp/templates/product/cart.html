@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="utf-8"/>
     <meta name="author" content="Codecool"/>
@@ -29,16 +30,20 @@
                 <h4>Cart
                     <span class="price" style="color:black">
           <i class="fa fa-shopping-cart"></i>
-          <b>4</b>
+          <b th:text="${'Number of Item(s) : ' + cart.size()}">4</b>
         </span>
                 </h4><br>
-                <p><a href="#">Product 1</a> <span class="price">$15</span></p>
-                <p><a href="#">Product 2</a> <span class="price">$5</span></p>
-                <p><a href="#">Product 3</a> <span class="price">$8</span></p>
-                <p><a href="#">Product 4</a> <span class="price">$2</span></p>
+                <div th:each=" prod : ${cart}">
+                    <p><a href="#" th:text="${prod.name}">Product 1</a>
+                        <span th:text="${cartHash.get(prod)}"> () </span>
+                        <span class="price" th:text="${prod.defaultPrice * cartHash.get(prod)}">$15</span>
+                    </p>
+                    <button type="submit" value="add">+</button>
+                    <button type="submit" value="remove">-</button>
+                </div>
                 <hr>
-                <p>Total <span class="price" style="color:black"><b>$30</b></span></p>
             </div>
+            <p>Total <span class="price" style="color:black" th:text="${sum + ' USD'}"><b>$30</b></span></p>
             <button type="button">Back to shop</button>
         </div>
     </div>
