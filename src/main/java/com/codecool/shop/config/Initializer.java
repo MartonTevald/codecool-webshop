@@ -29,7 +29,7 @@ public class Initializer implements ServletContextListener {
         Supplier lenovo = new Supplier("Lenovo", "Computers");
         supplierDataStore.add(lenovo);
         Supplier apple = new Supplier("Apple", "Computers and Digital content");
-        supplierDataStore.add(lenovo);
+        supplierDataStore.add(apple);
 
         //setting up a new product category
         ProductCategory tablet = new ProductCategory("Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
@@ -44,6 +44,8 @@ public class Initializer implements ServletContextListener {
         productDataStore.add(new Product("Amazon Fire HD 8", 89, "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", tablet, amazon));
         productDataStore.add(new Product("Apple - MacBook Air 13.3\"", 999, "USD", "\n" +
                 "The latest MacBook Air features a stunning Retina display with True Tone technology, Touch ID, the latest Apple-designed keyboard, and a Force Touch trackpad - all housed in a thin and light iconic wedge design made from 100 percent recycled aluminum.² And with 12-hour battery life, it's a do-it-all notebook that goes all day long.¹", laptop, apple));
-
+        productDataStore.add(new Product("Lenovo ThinkPad Yoga 370 Touch Laptop", 750, "USD", "Combining power, performance, and portability, the stylish yet durable ThinkPad Yoga 370 gives you the freedom to work/play anywhere. Enjoy using it in different ways-from laptop to tablet and anything in between. Save time by writing," +
+                " highlighting, or drawing directly on screen. Take delight in seeing your visuals, presentations, and movies come to life on the vibrant 13.3\" display. And then relax knowing the Yoga 370 has an all-day battery life and comes with a worldwide warranty.", laptop, lenovo));
+        productDataStore.add(new Product("Apple iPad Pro (12.9-inch, Wi-Fi, 256GB) ", 989, "USD", "mmensely powerful, portable, and capable, the 12.9-inch iPad Pro features a redesigned Retina display that is the most advanced on the planet.", tablet, apple));
     }
 }
