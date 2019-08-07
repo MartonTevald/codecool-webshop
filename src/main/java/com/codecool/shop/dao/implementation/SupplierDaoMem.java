@@ -23,10 +23,20 @@ public class SupplierDaoMem implements SupplierDao {
         return instance;
     }
 
+
     @Override
     public void add(Supplier supplier) {
         supplier.setId(data.size() + 1);
         data.add(supplier);
+    }
+
+    public Supplier find(String name) {
+        for (Supplier sup : data) {
+            if (name.equals(sup.getName())) {
+                return sup;
+            }
+        }
+        return null;
     }
 
     @Override
