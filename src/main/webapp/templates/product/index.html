@@ -35,23 +35,29 @@
 <div class="jumbotron text-center">
     <h1>Codecool Shop</h1>
 </div>
-<form action="/" method="post">
-    <select name="filter">
-        <option disabled>Products</option>
-        <option value="reset">Set Default</option>
-        <option selected="selected" value="Laptop">Laptop</option>
-        <option value="Tablet">Tablet</option>
-        <option disabled>Supplier</option>
-        <option value="Lenovo">Lenovo</option>
-        <option value="Apple">Apple</option>
-        <option value="Amazon">Amazon</option>
-    </select>
-    <button type="submit">Filter</button>
-</form>
 
 <div class="container">
     <div class="card" th:if="${category != null}" th:each=" cat : ${category}">
         <strong th:text="${cat.name}">Category Title</strong>
+    <div class="card list-group-item" >
+        <form action="/" method="post">
+            <select name="filter" class="btn btn-success">
+                <option disabled>Products</option>
+                <option value="reset">Set Default</option>
+                <option selected="selected" value="Laptop">Laptop</option>
+                <option value="Tablet">Tablet</option>
+                <option disabled>Supplier</option>
+                <option value="Lenovo">Lenovo</option>
+                <option value="Apple">Apple</option>
+                <option value="Amazon">Amazon</option>
+            </select>
+            <button class="btn btn-success" type="submit">Filter</button>
+        </form>
+        <a class="btn btn-success" href="/cart">Check cart</a>
+        <a class="btn btn-success" href="#">Logout</a>
+    </div>
+    <div class="card">
+        <br><strong th:text="${cat.name}">Category Title</strong><br>
 
         <div id="products" class="row" >
             <div class="col col-sm-12 col-md-6 col-lg-4"
@@ -68,7 +74,7 @@
                             <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
                         </div>
                         <div class="card-text">
-                            <a class="btn btn-success" href="#">Add to cart</a>
+                            <a class="btn btn-success" href="/cart">Add to cart</a>
                         </div>
                     </div>
                 </div>
