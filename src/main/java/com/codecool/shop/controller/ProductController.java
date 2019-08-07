@@ -2,6 +2,7 @@ package com.codecool.shop.controller;
 
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.config.TemplateEngineUtil;
@@ -25,15 +26,22 @@ import java.util.Map;
 @WebServlet(urlPatterns = {"/"})
 public class ProductController extends HttpServlet {
 
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
+        SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
+        ProductCategoryDao productCatDataStore = ProductCategoryDaoMem.getInstance();
+
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
         context.setVariable("category", productCategoryDataStore.getAll());
         context.setVariable("products", productDataStore.getAll());
+        context.setVariable("supplier", supplierDataStore.getAll());
+        context.setVariable("categoryFilter", productCatDataStore.getAll());
+        context.setVariable("supplierFilter", supplierDataStore.getAll());
         // // Alternative setting of the template context
         // Map<String, Object> params = new HashMap<>();
         // params.put("category", productCategoryDataStore.find(1));
@@ -45,29 +53,43 @@ public class ProductController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         ProductDao productDataStore = ProductDaoMem.getInstance();
-        List<Product> products;
+        SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
+        ProductCategoryDao productCatDataStore = ProductCategoryDaoMem.getInstance();
+        List<Product> products = null;
+
+
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
+        context.setVariable("categoryFilter", productCatDataStore.getAll());
+        context.setVariable("supplierFilter", supplierDataStore.getAll());
 
-        String filterBy = req.getParameter("filter");
+        int filterCat = Integer.parseInt(req.getParameter("filterCat"));
+        int filterSup = Integer.parseInt(req.getParameter("filterSup"));
 
-        ProductCategory category = ProductCategoryDaoMem.getInstance().find(filterBy);
-        Supplier supplier = SupplierDaoMem.getInstance().find(filterBy);
+        ProductCategory category = productCatDataStore.find(filterCat);
+        Supplier supplier = supplierDataStore.find(filterSup);
 
-        if (category != null) {
-            products = productDataStore.getBy(category);
-            context.setVariable("category", category);
+
+        if (filterSup != -1 || filterCat != -1) {
+            if (category != null & supplier == null) {
+                products = productDataStore.getBy(category);
+                context.setVariable("category", category);
+
+            } else if (supplier != null & category == null) {
+                products = productDataStore.getBy(supplier);
+                context.setVariable("category", ProductCategoryDaoMem.getInstance().getAll());
+
+            } else if (category != null & supplier != null) {
+                products = productDataStore.getBy(supplier);
+                context.setVariable("category", category);
+                context.setVariable("supplier", supplier);
+            }
             context.setVariable("products", products);
 
-        } else if (supplier != null) {
-            products = productDataStore.getBy(supplier);
-            context.setVariable("category", ProductCategoryDaoMem.getInstance().getAll());
-            context.setVariable("products", products);
+        } else {
+            resp.sendRedirect("/");
 
-        }else{
-            doGet(req, resp);
         }
-
         engine.process("product/index.html", context, resp.getWriter());
 
 
