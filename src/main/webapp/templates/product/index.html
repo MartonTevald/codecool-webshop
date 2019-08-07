@@ -37,18 +37,38 @@
 </div>
 <div class="container">
     <div class="card list-group-item">
-        <select class="btn btn-success">
-            <option value="Filter">Some filter</option>
-        </select>
-        <a class="btn btn-success" href="#">Submit</a>
+
+        <form action="/" method="post">
+
+            <select name="filterCat" class="btn btn success">
+                <option th:value="${-1}">Categories</option>
+                <option th:each="categ : ${categoryFilter}" th:text="${categ.name}"
+                        th:value="${categ.id}">
+                </option>
+
+            </select>
+
+            <select name="filterSup" class="btn btn success">
+                <option th:value="${-1}">Suppliers</option>
+                <option th:each="sup : ${supplierFilter}" th:text="${sup.name}"
+                        th:value="${sup.id}">
+                </option>
+            </select>
+
+            <button class="btn btn-success" type="submit">Filter</button>
+        </form>
+
         <a class="btn btn-success" href="/cart">Check cart</a>
         <a class="btn btn-success" href="/checkout">Checkout</a>
     </div>
-    <div class="card" th:each="cat : ${category}">
-        <br><strong th:text="${cat.name}">Category Title</strong><br>
+
+    <div class="card" th:if="${category != null}" th:each=" cat : ${category}">
+        <strong th:text="${cat.name}">Category Title</strong>
+
         <div id="products" class="row">
-            <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}">
-                <div class="card" th:if="${prod.getProductCategory().name == cat.name}">
+            <div class="col col-sm-12 col-md-6 col-lg-4"
+                 th:each="prod,iterStat : ${products}" th:if="${prod.getProductCategory().name == cat.name}">
+                <div class="card">
                     <img class="" src="http://placehold.it/400x250/000/fff"
                          th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt=""/>
                     <div class="card-header">

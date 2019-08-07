@@ -24,6 +24,16 @@ public class ProductCategoryDaoMem implements ProductCategoryDao {
         return instance;
     }
 
+
+    public ProductCategory find(String catName){
+        for(ProductCategory cat : data){
+            if(catName.equals(cat.getName())){
+                return cat;
+            }
+        }
+        return null;
+    }
+
     @Override
     public void add(ProductCategory category) {
         category.setId(data.size() + 1);
