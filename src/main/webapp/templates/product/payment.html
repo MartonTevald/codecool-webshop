@@ -54,7 +54,6 @@
                     <label for="cvv">CVV</label>
                     <input type="number" id="cvv" name="cvv" placeholder="352" required minlength="3"
                            maxlength="3">
-                </form>
             </div>
             <button type="button">Back to checkout</button>
         </div>
@@ -62,6 +61,7 @@
 </div>
 <div class="col-25">
     <input type="submit" value="Confirm payment" class="btn" href="/payment">
+    </form>
 </div>
 <div>
     <div th:replace="footer.html :: copy"></div>
