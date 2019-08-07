@@ -35,14 +35,28 @@
 <div class="jumbotron text-center">
     <h1>Codecool Shop</h1>
 </div>
+<form action="/" method="post">
+    <select name="filter">
+        <option disabled>Products</option>
+        <option value="reset">Set Default</option>
+        <option selected="selected" value="Laptop">Laptop</option>
+        <option value="Tablet">Tablet</option>
+        <option disabled>Supplier</option>
+        <option value="Lenovo">Lenovo</option>
+        <option value="Apple">Apple</option>
+        <option value="Amazon">Amazon</option>
+    </select>
+    <button type="submit">Filter</button>
+</form>
 
 <div class="container">
-    <div class="card" th:each="cat : ${category}">
+    <div class="card" th:if="${category != null}" th:each=" cat : ${category}">
         <strong th:text="${cat.name}">Category Title</strong>
 
-        <div id="products" class="row">
-            <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}">
-                <div class="card" th:if="${prod.getProductCategory().name == cat.name}">
+        <div id="products" class="row" >
+            <div class="col col-sm-12 col-md-6 col-lg-4"
+                 th:each="prod,iterStat : ${products}" th:if="${prod.getProductCategory().name == cat.name}">
+                <div class="card" >
                     <img class="" src="http://placehold.it/400x250/000/fff"
                          th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt=""/>
                     <div class="card-header">
