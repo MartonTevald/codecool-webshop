@@ -35,7 +35,6 @@
 <div class="jumbotron text-center">
     <h1>Codecool Shop</h1>
 </div>
-
 <div class="container">
     <div class="card list-group-item">
 
@@ -60,7 +59,7 @@
         </form>
 
         <a class="btn btn-success" href="/cart">Check cart</a>
-        <a class="btn btn-success" href="#">Logout</a>
+        <a class="btn btn-success" href="/checkout">Checkout</a>
     </div>
 
     <div class="card" th:if="${category != null}" th:each=" cat : ${category}">
@@ -90,7 +89,6 @@
 
     </div>
 </div>
-
 
 <div th:replace="footer.html :: copy"></div>
 
