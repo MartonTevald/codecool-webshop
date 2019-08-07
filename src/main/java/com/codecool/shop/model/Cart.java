@@ -18,6 +18,7 @@ public class Cart {
 
     private List<Product> cart = new ArrayList<>();
 
+
     void addToCart(Product product){
         cart.add(product);
     }
