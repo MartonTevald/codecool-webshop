@@ -21,7 +21,7 @@
 </head>
 <body>
 <div class="jumbotron text-center">
-    <h1>Checkout</h1>
+    <h1>Codecool Shop</h1>
 </div>
 <div class="row">
     <div class="col-75">
@@ -53,13 +53,11 @@
                     <input type="checkbox" checked="checked" name="sameadr">Shipping address same as billing
             </div>
             <button type="button" href="/cart">Back to shopping cart</button>
+            <input type="submit" value="Continue to payment" class="btn" href="/payment">
         </div>
     </div>
 </div>
-<div class="col-25">
-    <input type="submit" value="Continue to payment" class="btn" href="/payment">
     </form>
-</div>
 <div th:replace="footer.html :: copy"></div>
 </body>
 </html>

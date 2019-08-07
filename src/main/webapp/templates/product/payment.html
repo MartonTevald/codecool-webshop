@@ -20,7 +20,7 @@
 </head>
 <body>
 <div class="jumbotron text-center">
-    <h1>Payment</h1>
+    <h1>Codecool Shop</h1>
 </div>
 <div class="row">
     <div class="col-75">
@@ -56,13 +56,11 @@
                            maxlength="3">
             </div>
             <button type="button">Back to checkout</button>
+            <input type="submit" value="Confirm payment" class="btn" href="/payment">
         </div>
     </div>
 </div>
-<div class="col-25">
-    <input type="submit" value="Confirm payment" class="btn" href="/payment">
-    </form>
-</div>
+</form>
 <div>
     <div th:replace="footer.html :: copy"></div>
 </div>
