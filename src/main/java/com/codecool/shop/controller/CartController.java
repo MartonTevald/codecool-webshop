@@ -1,10 +1,8 @@
 package com.codecool.shop.controller;
 
-import com.codecool.shop.dao.ProductCategoryDao;
-import com.codecool.shop.dao.ProductDao;
-import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
-import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.config.TemplateEngineUtil;
+import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.Product;
 import org.thymeleaf.TemplateEngine;
@@ -16,9 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @WebServlet(urlPatterns = {"/cart"})
 public class CartController extends HttpServlet {
@@ -46,14 +42,8 @@ public class CartController extends HttpServlet {
 
         ProductDao productDataStore = ProductDaoMem.getInstance();
         List<Product> products = productDataStore.getAll();
+
         Cart cart = Cart.getInstance();
-        int productid = Integer.parseInt(req.getParameter("add"));
-//        Product product = products.get(productid);
-//        if (req.getParameter("add")!=null) {
-//            cart.addToCart(product);
-//        }
-
-
         int productID = Integer.parseInt(req.getParameter("addToCartButton"));
         Product prod = productDataStore.find(productID);
 
@@ -61,6 +51,7 @@ public class CartController extends HttpServlet {
 
 
         resp.sendRedirect(req.getContextPath() + "/");
+
 
     }
 }

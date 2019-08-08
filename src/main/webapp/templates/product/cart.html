@@ -38,13 +38,14 @@
                         <b><span th:text="${ '( '+cartHash.get(prod)+' )'+' * ' + prod.defaultPrice+ ' USD'}"> () </span></b>
                         <span class="price" th:text="${prod.defaultPrice * cartHash.get(prod)+' USD'}">$15</span>
                     </p>
-                    <button type="submit" name="add" th:value="${prod.id}" th:default="${'0'}">+</button>
+                    <button type="submit" name="add" th:value="${prod.id}">+</button>
                     <button type="submit" name="remove" th:value="${prod.id}">-</button>
                 </div>
-                <hr>
             </div>
             <p>Total <span class="price" style="color:black" th:text="${sum + ' USD'}"><b>$30</b></span></p>
-            <button type="button">Back to shop</button>
+            <form action="index.html" method="get">
+            <button type="submit">Back to shop</button>
+            </form>
             <input type="submit" value="Continue to checkout" class="btn" href="/payment">
         </div>
     </div>
