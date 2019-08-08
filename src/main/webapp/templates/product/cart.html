@@ -35,11 +35,14 @@
                 </h4><br>
                 <div th:each=" prod : ${cart}">
                     <p><a href="#" th:text="${prod.name}">Product 1</a>
-                        <b><span th:text="${ '( '+cartHash.get(prod)+' )'+' * ' + prod.defaultPrice+ ' USD'}"> () </span></b>
+                        <b><span
+                                th:text="${ '( '+cartHash.get(prod)+' )'+' * ' + prod.defaultPrice+ ' USD'}"> () </span></b>
                         <span class="price" th:text="${prod.defaultPrice * cartHash.get(prod)+' USD'}">$15</span>
                     </p>
-                    <button type="submit" name="add" th:value="${prod.id}" th:default="${'0'}">+</button>
-                    <button type="submit" name="remove" th:value="${prod.id}">-</button>
+                    <form action="/cart" method="post">
+                        <button type="submit" name="add" th:value="${prod.id}">+</button>
+                        <button type="submit" name="remove" th:value="${prod.id}">-</button>
+                    </form>
                 </div>
                 <hr>
             </div>

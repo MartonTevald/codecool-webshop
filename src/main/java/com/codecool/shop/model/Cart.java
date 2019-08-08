@@ -43,15 +43,21 @@ public class Cart {
     public void addToCart(Product product) {
         if (cart.containsKey(product)) {
             Integer actual = cart.get(product) + 1;
-            System.out.println(actual);
             cart.put(product, actual);
         } else {
             cart.put(product, 1);
         }
     }
 
-    void removeFromCart(Product product) {
-        cart.remove(product);
+    public void removeFromCart(Product product) {
+        if (cart.containsKey(product)) {
+            Integer actual = cart.get(product);
+            if (actual > 1) {
+                cart.put(product, cart.get(product) - 1);
+            }else{
+                cart.remove(product);
+            }
+        }
     }
 
     public List<Product> getProducts() {
