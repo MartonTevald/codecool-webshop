@@ -23,13 +23,6 @@ public class ConfirmationController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
-//        WebContext context = new WebContext(req, resp, req.getServletContext());
-//        ProductDao productDataStore = ProductDaoMem.getInstance();
-//        List<Order> order = OrderDaoMem.getInstance().getAll();
-//        Order ord = order.get(0);
-//        context.setVariable("order", ord);
-//        engine.process("product/payment.html", context, resp.getWriter());
     }
 
     @Override
@@ -37,7 +30,6 @@ public class ConfirmationController extends HttpServlet {
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-        ProductDao productDataStore = ProductDaoMem.getInstance();
         List<Order> order = OrderDaoMem.getInstance().getAll();
         Order ord = order.get(0);
         context.setVariable("order", ord);
