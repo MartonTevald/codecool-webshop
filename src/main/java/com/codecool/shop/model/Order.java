@@ -1,6 +1,7 @@
 package com.codecool.shop.model;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class Order  {
 
@@ -18,6 +19,16 @@ public class Order  {
     public Order(HashMap<Product,Integer> cart) {
         this.orderId = id++;
         this.userCart = cart;
+    }
+
+    public float sumTotal(){
+        totalSum = 0;
+        for (Map.Entry<Product, Integer> map : userCart.entrySet()) {
+            float key = map.getKey().getDefaultPrice();
+            Integer value = map.getValue();
+            totalSum += (key * value);
+        }
+        return totalSum;
     }
 
     public void setTotalSum(float totalSum) {
@@ -42,5 +53,9 @@ public class Order  {
 
     public void setShippingAddress(String shippingAddress) {
         this.shippingAddress = shippingAddress;
+    }
+
+    public String getName() {
+        return name;
     }
 }

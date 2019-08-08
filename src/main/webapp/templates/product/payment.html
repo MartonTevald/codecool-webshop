@@ -20,7 +20,7 @@
 </head>
 <body>
 <div class="jumbotron text-center">
-    <h1>Codecool Shop</h1>
+    <img src="/static/img/codecoolshop.png">
 </div>
 <div class="row">
     <div class="col-75">
@@ -56,9 +56,12 @@
                            maxlength="3">
             </div>
             <b>
-                <br><div id="price" th:text="${'Total Price: '+sum + ' USD'}"></div>
+                <br>
+                <div id="price" th:text="${'Total Price: '+sum + ' USD'}"></div>
             </b>
-            <input type="submit" value="Confirm payment" class="btn" href="/payment">
+            </form>
+            <form action="/confirm" method="post">
+                <input type="submit" value="Confirm payment" class="btn">
             </form>
             <form method="get" action="/checkout">
                 <button type="submit">Back to checkout</button>
