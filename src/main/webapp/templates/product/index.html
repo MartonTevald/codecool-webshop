@@ -20,6 +20,7 @@
 <body>
 <div class="jumbotron text-center">
     <h1>Codecool Shop</h1>
+    <!--    <img src="/static/img/codecoolshop.png">-->
 </div>
 <div class="container">
     <div class="card list-group-item">
@@ -37,12 +38,12 @@
                 </option>
             </select>
             <button class="btn btn-success" type="submit">Filter</button>
+            <a class="btn btn-success" href="/cart">Shopping cart</a>
+            <a class="btn btn-success" href="/checkout">Checkout</a>
         </form>
-        <a class="btn btn-success" href="/cart">Check cart</a>
-        <a class="btn btn-success" href="/checkout">Checkout</a>
     </div>
     <div class="card" th:if="${category != null}" th:each=" cat : ${category}">
-        <strong th:text="${cat.name}">Category Title</strong>
+        <br><strong th:text="${cat.name}">Category Title</strong><br>
         <div id="products" class="row">
             <div class="col col-sm-12 col-md-6 col-lg-4"
                  th:each="prod,iterStat : ${products}" th:if="${prod.getProductCategory().name == cat.name}">
@@ -59,7 +60,9 @@
                         </div>
                         <div class="card-text">
                             <form action="/cart" method="post">
-                                <button class="btn btn-success" name="addToCartButton" th:value="${prod.id}" type="submit">Add to cart</button>
+                                <button class="btn btn-success" name="addToCartButton" th:value="${prod.id}"
+                                        type="submit">Add to cart
+                                </button>
                             </form>
                         </div>
                     </div>

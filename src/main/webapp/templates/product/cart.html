@@ -21,7 +21,7 @@
 </head>
 <body>
 <div class="jumbotron text-center">
-    <h1>Shopping cart</h1>
+    <h1>Codecool Shop</h1>
 </div>
 <div class="row">
     <div class="col-75">
@@ -45,11 +45,9 @@
             </div>
             <p>Total <span class="price" style="color:black" th:text="${sum + ' USD'}"><b>$30</b></span></p>
             <button type="button">Back to shop</button>
+            <input type="submit" value="Continue to checkout" class="btn" href="/payment">
         </div>
     </div>
-</div>
-<div class="col-25">
-    <input type="submit" value="Continue to checkout" class="btn" href="/payment">
 </div>
 <div th:replace="footer.html :: copy"></div>
 </body>
