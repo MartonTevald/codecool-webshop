@@ -27,7 +27,7 @@
     <div class="col-75">
         <div class="container">
             <div class="col-50">
-                <form name="checkout" action="/action_page.php" onsubmit="return validateCheckoutForm()">
+                <form name="checkout" action="/payment" method="post" onsubmit="return validateCheckoutForm()">
                     <h3>Billing Address</h3>
                     <label for="fname"><i class="fa fa-user"></i> Full Name</label>
                     <input type="text" id="fname" name="firstname" placeholder="The Real John Wick" required
@@ -51,10 +51,12 @@
                         </div>
                     </div>
                     <input type="checkbox" checked="checked" name="sameadr">Shipping address same as billing
-                </form>
             </div>
-            <button type="button" href="/cart">Back to shopping cart</button>
-            <input type="submit" value="Continue to payment" class="btn" href="/payment">
+                <input type="submit" value="Continue to payment" class="btn">
+            </form>
+            <form action="/cart" method="get">
+                <button type="submit" href="/cart">Back to shopping cart</button>
+            </form>
         </div>
     </div>
 </div>

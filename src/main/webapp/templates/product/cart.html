@@ -46,10 +46,12 @@
                 </div>
             </div>
             <p>Total <span class="price" style="color:black" th:text="${sum + ' USD'}"><b>$30</b></span></p>
-            <form action="index.html" method="get">
-            <button type="submit">Back to shop</button>
+            <form action="/checkout" method="get">
+                <input type="submit" value="Continue to checkout" class="btn" href="/checkout">
             </form>
-            <input type="submit" value="Continue to checkout" class="btn" href="/payment">
+            <form action="/" method="get">
+                <button type="submit">Back to shop</button>
+            </form>
         </div>
     </div>
 </div>
