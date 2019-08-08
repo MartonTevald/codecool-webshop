@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8"/>
     <meta name="author" content="Codecool"/>
@@ -55,6 +55,9 @@
                     <input type="number" id="cvv" name="cvv" placeholder="352" required minlength="3"
                            maxlength="3">
             </div>
+            <b>
+                <br><div id="price" th:text="${'Total Price: '+sum + ' USD'}"></div>
+            </b>
             <input type="submit" value="Confirm payment" class="btn" href="/payment">
             </form>
             <form method="get" action="/checkout">

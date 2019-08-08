@@ -4,11 +4,13 @@ import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.model.Order;
 import com.codecool.shop.model.Product;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class OrderDaoMem implements OrderDao {
 
-    private HashMap<Product, Integer> data;
+    private List<Order> data = new ArrayList<>();
     private static OrderDaoMem instance = null;
 
     private OrderDaoMem() {
@@ -23,13 +25,18 @@ public class OrderDaoMem implements OrderDao {
 
     @Override
     public void add(Order order) {
-        /// TODO: 2019. 08. 07.
+        data.add(order);
 
     }
 
     @Override
     public Order find(int id) {
         return null;
+    }
+
+    @Override
+    public List<Order> getAll() {
+        return data;
     }
 
     @Override
