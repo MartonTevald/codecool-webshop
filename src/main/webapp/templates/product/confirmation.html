@@ -27,31 +27,17 @@
     <div class="col-75">
         <div class="container">
             <div class="col-50">
-                <h4>Cart
-                    <span class="price" style="color:black">
-          <i class="fa fa-shopping-cart"></i>
-          <b th:text="${'Number of Item(s) : ' + numberOfProducts}">4</b>
-        </span>
-                </h4><br>
-                <div th:each=" prod : ${cart}">
-                    <p><a href="#" th:text="${prod.name}">Product 1</a>
-                        <b><span
-                                th:text="${ '( '+cartHash.get(prod)+' )'+' * ' + prod.defaultPrice+ ' USD'}"> () </span></b>
-                        <span class="price" th:text="${prod.defaultPrice * cartHash.get(prod)+' USD'}">$15</span>
-                    </p>
-                    <form action="/cart" method="post">
-                        <button type="submit" name="add" th:value="${prod.id}">+</button>
-                        <button type="submit" name="remove" th:value="${prod.id}">-</button>
-                    </form>
+                <h4>Confirmation Successful</h4>
+                <div class="cont" th:each="ord : ${order} ">
+                    <br><strong
+                        th:text="${'Thanks for the purchase and have a nice day '+ord.name +' .' }">Name</strong><br>
                 </div>
+                <strong th:text="${'Total Price: '+order.sumTotal()+' USD'}"></strong>
+                <b><strong>Your order is being processed. Estimated to arrive 999days.</strong></b>
+                <form action="/" method="get">
+                    <button type="submit">Continue shopping</button>
+                </form>
             </div>
-            <p>Total <span class="price" style="color:black" th:text="${sum + ' USD'}"><b>$30</b></span></p>
-            <form action="/checkout" method="get">
-                <input type="submit" value="Continue to checkout" class="btn" href="/checkout">
-            </form>
-            <form action="/" method="get">
-                <button type="submit">Back to shop</button>
-            </form>
         </div>
     </div>
 </div>
