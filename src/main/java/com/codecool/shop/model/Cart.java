@@ -3,6 +3,7 @@ package com.codecool.shop.model;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Cart {
     private static final Cart INSTANCE = new Cart();
@@ -23,8 +24,18 @@ public class Cart {
 
     public float getSumOfPrice() {
         float sum = 0;
-        for (Product prod : getProducts()) {
-            sum += prod.getDefaultPrice();
+        for (Map.Entry<Product, Integer> map : cart.entrySet()) {
+            float key = map.getKey().getDefaultPrice();
+            Integer value = map.getValue();
+            sum += (key * value);
+        }
+        return sum;
+    }
+
+    public int getNumberOfProducts() {
+        int sum = 0;
+        for (Product key : cart.keySet()) {
+            sum += cart.get(key);
         }
         return sum;
     }

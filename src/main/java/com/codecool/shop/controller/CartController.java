@@ -31,7 +31,7 @@ public class CartController extends HttpServlet {
         ProductDao productDataStore = ProductDaoMem.getInstance();
         List<Product> pod = Cart.getInstance().getProducts();
 
-
+        context.setVariable("numberOfProducts", Cart.getInstance().getNumberOfProducts());
         context.setVariable("cartHash", Cart.getInstance().getCart());
         context.setVariable("cart", pod);
         context.setVariable("products", productDataStore.getAll());
@@ -53,11 +53,6 @@ public class CartController extends HttpServlet {
 
         cart.addToCart(prod);
 
-//        for (Product product : products) {
-//            if (product.getName().equals(cartItem)) {
-////                cart.getCart().get()
-//            }
-//        }
 
         resp.sendRedirect(req.getContextPath() + "/");
 

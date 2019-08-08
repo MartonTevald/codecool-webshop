@@ -30,13 +30,13 @@
                 <h4>Cart
                     <span class="price" style="color:black">
           <i class="fa fa-shopping-cart"></i>
-          <b th:text="${'Number of Item(s) : ' + cart.size()}">4</b>
+          <b th:text="${'Number of Item(s) : ' + numberOfProducts}">4</b>
         </span>
                 </h4><br>
                 <div th:each=" prod : ${cart}">
                     <p><a href="#" th:text="${prod.name}">Product 1</a>
-                        <span th:text="${cartHash.get(prod)}"> () </span>
-                        <span class="price" th:text="${prod.defaultPrice * cartHash.get(prod)}">$15</span>
+                        <b><span th:text="${ '( '+cartHash.get(prod)+' )'+' * ' + prod.defaultPrice+ ' USD'}"> () </span></b>
+                        <span class="price" th:text="${prod.defaultPrice * cartHash.get(prod)+' USD'}">$15</span>
                     </p>
                     <button type="submit" value="add">+</button>
                     <button type="submit" value="remove">-</button>
