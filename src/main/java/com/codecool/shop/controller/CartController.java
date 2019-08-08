@@ -46,8 +46,14 @@ public class CartController extends HttpServlet {
 
         ProductDao productDataStore = ProductDaoMem.getInstance();
         List<Product> products = productDataStore.getAll();
-
         Cart cart = Cart.getInstance();
+        int productid = Integer.parseInt(req.getParameter("add"));
+//        Product product = products.get(productid);
+//        if (req.getParameter("add")!=null) {
+//            cart.addToCart(product);
+//        }
+
+
         int productID = Integer.parseInt(req.getParameter("addToCartButton"));
         Product prod = productDataStore.find(productID);
 
@@ -55,7 +61,6 @@ public class CartController extends HttpServlet {
 
 
         resp.sendRedirect(req.getContextPath() + "/");
-
 
     }
 }
