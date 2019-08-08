@@ -1,6 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8"/>
     <meta name="author" content="Codecool"/>
@@ -24,7 +23,7 @@
     <!--    <img src="/static/img/codecoolshop.png">-->
 </div>
 <div class="container">
-    <div class="card list-group-image">
+    <div class="card list-group-item">
         <form action="/" method="post">
             <select name="filterCat" class="btn btn success">
                 <option th:value="${-1}">Categories</option>
@@ -61,7 +60,7 @@
                         </div>
                         <div class="card-text">
                             <form action="/cart" method="post">
-                                <button class="btn btn-success" name="addtocartbutton" th:value="${prod.name}"
+                                <button class="btn btn-success" name="addToCartButton" th:value="${prod.id}"
                                         type="submit">Add to cart
                                 </button>
                             </form>

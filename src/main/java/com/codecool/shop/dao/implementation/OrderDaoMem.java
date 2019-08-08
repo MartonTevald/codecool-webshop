@@ -23,7 +23,7 @@ public class OrderDaoMem implements OrderDao {
 
     @Override
     public void add(Order order) {
-        /// TODO: 2019. 08. 07.  
+        /// TODO: 2019. 08. 07.
 
     }
 
