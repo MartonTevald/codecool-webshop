@@ -30,6 +30,8 @@ public class Initializer implements ServletContextListener {
         supplierDataStore.add(lenovo);
         Supplier apple = new Supplier("Apple", "Computers and Digital content");
         supplierDataStore.add(apple);
+        Supplier java = new Supplier("Mustang", "accessories");
+        supplierDataStore.add(java);
 
         //setting up a new product category
         ProductCategory tablet = new ProductCategory("Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
@@ -37,8 +39,10 @@ public class Initializer implements ServletContextListener {
         ProductCategory laptop = new ProductCategory("Laptop", "Hardware", "A laptop computer, sometimes called a notebook computer by manufacturers, is a battery- or AC-powered personal computer generally smaller than a briefcase that can easily" +
                 " be transported and conveniently used in temporary spaces such as on airplanes, in libraries, temporary offices, and at meetings.");
         productCategoryDataStore.add(laptop);
-
+        ProductCategory accessoiries = new ProductCategory("Accessories", "Hardware", "Other products, accessories.");
+        productCategoryDataStore.add(accessoiries);
         //setting up products and printing it
+
         productDataStore.add(new Product("Amazon Fire", 49, "USD", "Fantastic price. Large content ecosystem. Good parental controls. Helpful technical support.", tablet, amazon));
         productDataStore.add(new Product("Lenovo IdeaPad Miix 700", 479, "USD", "Keyboard cover is included. Fanless Core m5 processor. Full-size USB ports. Adjustable kickstand.", tablet, lenovo));
         productDataStore.add(new Product("Amazon Fire HD 8", 89, "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", tablet, amazon));
@@ -47,5 +51,6 @@ public class Initializer implements ServletContextListener {
         productDataStore.add(new Product("Lenovo ThinkPad Yoga 370 Touch Laptop", 750, "USD", "Combining power, performance, and portability, the stylish yet durable ThinkPad Yoga 370 gives you the freedom to work/play anywhere. Enjoy using it in different ways-from laptop to tablet and anything in between. Save time by writing," +
                 " highlighting, or drawing directly on screen. Take delight in seeing your visuals, presentations, and movies come to life on the vibrant 13.3\" display. And then relax knowing the Yoga 370 has an all-day battery life and comes with a worldwide warranty.", laptop, lenovo));
         productDataStore.add(new Product("Apple iPad Pro (12.9-inch, Wi-Fi, 256GB) ", 989, "USD", "mmensely powerful, portable, and capable, the 12.9-inch iPad Pro features a redesigned Retina display that is the most advanced on the planet.", tablet, apple));
+        productDataStore.add(new Product("Java 50", 9999, "USD", "The ultimate tool if it comes to change geoposition and you are a developer.", accessoiries, java));
     }
 }
