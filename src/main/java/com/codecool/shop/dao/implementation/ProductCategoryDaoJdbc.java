@@ -7,6 +7,7 @@ import com.codecool.shop.model.ProductCategory;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductCategoryDaoJdbc extends DatabaseConnection implements ProductCategoryDao {
@@ -53,12 +54,15 @@ public class ProductCategoryDaoJdbc extends DatabaseConnection implements Produc
 
     @Override
     public List<ProductCategory> getAll() {
+        List<ProductCategory> prodcatres = new ArrayList<>();
         try {
             PreparedStatement stmt = getConnection().prepareStatement("SELECT * FROM prodcat");
             ResultSet qr = stmt.executeQuery();
             while (qr.next()){
-
+                ProductCategory productCategory = new ProductCategory(qr.getString("name"), qr.getString("department"), qr.getString("description"));
+                prodcatres.add(productCategory);
             }
+            return prodcatres;
         } catch (SQLException e) {
             e.printStackTrace();
         }
