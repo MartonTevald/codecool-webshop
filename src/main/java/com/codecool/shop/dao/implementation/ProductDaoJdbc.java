@@ -22,9 +22,9 @@ public class ProductDaoJdbc extends DatabaseConnection implements ProductDao {
             stmt.setString(1, product.getName());
             stmt.setString(2, product.getDescription());
             stmt.setDouble(3, product.getDefaultPrice());
-            int n = getSupplierId(product.getSupplier().getName());
             stmt.setInt(4, getSupplierId(product.getSupplier().getName()));
             stmt.setInt(5, getProdCatId(product.getProductCategory().getName()));
+
             stmt.executeQuery();
 
         } catch (SQLException e) {
@@ -35,11 +35,16 @@ public class ProductDaoJdbc extends DatabaseConnection implements ProductDao {
     }
 
     public int getSupplierId(String name) {
+        String result = null;
         try {
             PreparedStatement stmt = getConnection().prepareStatement("SELECT supplier.id FROM supplier WHERE supplier.name = ?");
-            stmt.setString(1,name);
-            ResultSet result = stmt.executeQuery();
-            return Integer.parseInt(String.valueOf(result));
+            stmt.setString(1, name);
+            ResultSet res = stmt.executeQuery();
+
+            if (res.next())
+                result = res.getString(1);
+            return Integer.parseInt(result);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -48,11 +53,18 @@ public class ProductDaoJdbc extends DatabaseConnection implements ProductDao {
     }
 
     public int getProdCatId(String name) {
+        String result = null;
+
         try {
             PreparedStatement stmt = getConnection().prepareStatement("" +
-                    "SELECT prodcat.id FROM prodcat WHERE name = ' + name + '");
-            ResultSet result = stmt.executeQuery();
-            return Integer.parseInt(String.valueOf(result));
+                    "SELECT prodcat.id FROM prodcat WHERE name = ?");
+            stmt.setString(1, name);
+            ResultSet res = stmt.executeQuery();
+
+            if (res.next())
+                result = res.getString(1);
+            return Integer.parseInt(result);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

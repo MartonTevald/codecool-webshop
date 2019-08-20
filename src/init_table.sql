@@ -13,11 +13,11 @@ CREATE TABLE prodCat(
 
 CREATE TABLE product(
     id SERIAL PRIMARY KEY,
-    name varchar(50) UNIQUE ,
+    name varchar(50)  ,
     description varchar(200),
     price float8,
-    supplier_id serial REFERENCES supplier(id),
-    prodCat_id serial REFERENCES prodCat(id)
+    supplier_id int  REFERENCES supplier(id),
+    prodCat_id int REFERENCES prodCat(id)
 
 
                     );
