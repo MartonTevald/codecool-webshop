@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS product, supplier, prodCat;
 CREATE TABLE supplier(
     id  SERIAL PRIMARY KEY ,
     name VARCHAR(50) UNIQUE ,
+    department varchar(50),
     description varchar(200));
 
 CREATE TABLE prodCat(
