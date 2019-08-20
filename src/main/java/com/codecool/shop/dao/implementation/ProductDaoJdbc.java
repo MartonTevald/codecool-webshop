@@ -83,16 +83,18 @@ public class ProductDaoJdbc extends DatabaseConnection implements ProductDao {
             PreparedStatement stmt = getConnection().prepareStatement("SELECT * FROM product WHERE product.id = ?");
             stmt.setInt(1, id);
             ResultSet resultSet = stmt.executeQuery();
-            result = new Product(
-                    resultSet.getInt("id"),
-                    resultSet.getString("name"),
-                    resultSet.getFloat("price"),
-                    "USD",
-                    resultSet.getString("description"),
-                    prodCatJdbc.find(resultSet.getInt("prodcat_id")),
-                    suppJdbc.find(resultSet.getInt("supplier_id")));
+            while (resultSet.next()) {
+                result = new Product(
+                        resultSet.getInt("id"),
+                        resultSet.getString("name"),
+                        resultSet.getFloat("price"),
+                        "USD",
+                        resultSet.getString("description"),
+                        prodCatJdbc.find(resultSet.getInt("prodcat_id")),
+                        suppJdbc.find(resultSet.getInt("supplier_id")));
 
-            return result;
+                return result;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
