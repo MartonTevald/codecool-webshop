@@ -31,7 +31,7 @@ public class SupplierDaoJdbc extends DatabaseConnection implements SupplierDao {
         Supplier result;
         try {
             PreparedStatement stmt = getConnection().prepareStatement(
-                    "SELECT * FROM supplier WHERE supplier_id = ?");
+                    "SELECT * FROM supplier WHERE id = ?");
             stmt.setString(1, String.valueOf(id));
             ResultSet resultSet = stmt.executeQuery();
             result = new Supplier(resultSet.getString("name"),
@@ -47,7 +47,7 @@ public class SupplierDaoJdbc extends DatabaseConnection implements SupplierDao {
     @Override
     public void remove(int id) {
         try {
-            PreparedStatement stmt = getConnection().prepareStatement("DELETE FROM supplier WHERE supplier_id = ?");
+            PreparedStatement stmt = getConnection().prepareStatement("DELETE FROM supplier WHERE id = ?");
             stmt.setString(1, String.valueOf(id));
             stmt.executeQuery();
         } catch (SQLException e) {
@@ -61,7 +61,7 @@ public class SupplierDaoJdbc extends DatabaseConnection implements SupplierDao {
         try {
             PreparedStatement stmt = getConnection().prepareStatement("SELECT * FROM prodcat");
             ResultSet resultSet = stmt.executeQuery();
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 Supplier supplier = new Supplier(resultSet.getString("name"), resultSet.getString("department"), resultSet.getString("description"));
                 suppliers.add(supplier);
             }
