@@ -10,6 +10,7 @@ import com.codecool.shop.model.Supplier;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDaoJdbc extends DatabaseConnection implements ProductDao {
@@ -71,6 +72,8 @@ public class ProductDaoJdbc extends DatabaseConnection implements ProductDao {
         return 0;
     }
 
+
+
     @Override
     public Product find(int id) {
         return null;
@@ -79,10 +82,41 @@ public class ProductDaoJdbc extends DatabaseConnection implements ProductDao {
 
     @Override
     public void remove(int id) {
+        try {
+            PreparedStatement stmt = getConnection().prepareStatement("DELETE FROM product WHERE product.id = ?");
+            stmt.setString(1, String.valueOf(id));
+            stmt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
+
 
     @Override
     public List<Product> getAll() {
+        ProductCategoryDaoJdbc prodCatJdbc = new ProductCategoryDaoJdbc();
+        SupplierDaoJdbc suppJdbc = new SupplierDaoJdbc();
+
+
+        List<Product> products = new ArrayList<>();
+        try {
+            PreparedStatement stmt = getConnection().prepareStatement("SELECT * FROM product");
+            ResultSet resultSet = stmt.executeQuery();
+            while (resultSet.next()) {
+                Product product;
+                product = new Product(resultSet.getString("name"),
+                        resultSet.getFloat("price"),
+                        "USD",
+                        resultSet.getString("description"),
+                        prodCatJdbc.find(resultSet.getInt("prodcat_id"),
+                                suppJdbc.find(resultSet.getInt("supplier_id"));
+
+                products.add(product);
+            }
+            return products;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
