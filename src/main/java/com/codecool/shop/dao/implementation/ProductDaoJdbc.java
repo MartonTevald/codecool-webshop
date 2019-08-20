@@ -36,7 +36,8 @@ public class ProductDaoJdbc extends DatabaseConnection implements ProductDao {
 
     public int getSupplierId(String name) {
         try {
-            PreparedStatement stmt = getConnection().prepareStatement("SELECT supplier.id FROM supplier WHERE supplier.name = (name) VALUE (?)");
+            PreparedStatement stmt = getConnection().prepareStatement("SELECT supplier.id FROM supplier WHERE supplier.name = ?");
+            stmt.setString(1,name);
             ResultSet result = stmt.executeQuery();
             return Integer.parseInt(String.valueOf(result));
         } catch (SQLException e) {
