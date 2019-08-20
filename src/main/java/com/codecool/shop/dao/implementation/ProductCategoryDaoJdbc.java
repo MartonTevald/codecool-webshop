@@ -4,11 +4,23 @@ import com.codecool.shop.dao.DatabaseConnection;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.model.ProductCategory;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
 public class ProductCategoryDaoJdbc extends DatabaseConnection implements ProductCategoryDao {
     @Override
     public void add(ProductCategory category) {
+        try {
+            PreparedStatement stmt = getConnection().prepareStatement("INSERT INTO prodcat (name, department ,description) VALUES (?,?,?)");
+            stmt.setString(1, category.getName());
+            stmt.setString(2, category.getDepartment());
+            stmt.setString(3, category.getDescription());
+            stmt.executeQuery();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 

@@ -29,15 +29,6 @@ public class SupplierDaoMem extends DatabaseConnection implements SupplierDao {
 
     @Override
     public void add(Supplier supplier) {
-        try {
-            PreparedStatement stmt = getConnection().prepareStatement("INSERT INTO supplier (name, description)VALUES (?,?)");
-            stmt.setString(1, supplier.getName());
-            stmt.setString(2, supplier.getDescription());
-            stmt.executeQuery();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 //        supplier.setId(data.size() + 1);
 //        data.add(supplier);
     }

@@ -3,9 +3,7 @@ package com.codecool.shop.config;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
-import com.codecool.shop.dao.implementation.ProductDaoMem;
-import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
@@ -23,27 +21,41 @@ public class Initializer implements ServletContextListener {
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
 
+        ProductDaoJdbc prodJdbc = new ProductDaoJdbc();
+        SupplierDaoJdbc supplierJdbc = new SupplierDaoJdbc();
+        ProductCategoryDaoJdbc prodCatJdbc = new ProductCategoryDaoJdbc();
+
+
         //setting up a new supplier
         Supplier amazon = new Supplier("Amazon", "Digital content and services");
-        supplierDataStore.add(amazon);
+        supplierJdbc.add(amazon);
+//        supplierDataStore.add(amazon);
         Supplier lenovo = new Supplier("Lenovo", "Computers");
-        supplierDataStore.add(lenovo);
+        supplierJdbc.add(lenovo);
+//        supplierDataStore.add(lenovo);
         Supplier apple = new Supplier("Apple", "Computers and Digital content");
-        supplierDataStore.add(apple);
+        supplierJdbc.add(apple);
+//        supplierDataStore.add(apple);
         Supplier java = new Supplier("Mustang", "accessories");
-        supplierDataStore.add(java);
+        supplierJdbc.add(java);
+//        supplierDataStore.add(java);
 
         //setting up a new product category
+
         ProductCategory tablet = new ProductCategory("Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
-        productCategoryDataStore.add(tablet);
+        prodCatJdbc.add(tablet);
+//        productCategoryDataStore.add(tablet);
         ProductCategory laptop = new ProductCategory("Laptop", "Hardware", "A laptop computer, sometimes called a notebook computer by manufacturers, is a battery- or AC-powered personal computer generally smaller than a briefcase that can easily" +
                 " be transported and conveniently used in temporary spaces such as on airplanes, in libraries, temporary offices, and at meetings.");
-        productCategoryDataStore.add(laptop);
+        prodCatJdbc.add(laptop);
+        //        productCategoryDataStore.add(laptop);
         ProductCategory accessoiries = new ProductCategory("Accessories", "Hardware", "Other products, accessories.");
-        productCategoryDataStore.add(accessoiries);
+        prodCatJdbc.add(accessoiries);
+//        productCategoryDataStore.add(accessoiries);
+
         //setting up products and printing it
 
-        productDataStore.add(new Product("Amazon Fire", 49, "USD", "Fantastic price. Large content ecosystem. Good parental controls. Helpful technical support.", tablet, amazon));
+        prodJdbc.add(new Product("Amazon Fire", 49, "USD", "Fantastic price. Large content ecosystem. Good parental controls. Helpful technical support.", tablet, amazon));
 //        productDataStore.add(new Product("Lenovo IdeaPad Miix 700", 479, "USD", "Keyboard cover is included. Fanless Core m5 processor. Full-size USB ports. Adjustable kickstand.", tablet, lenovo));
 //        productDataStore.add(new Product("Amazon Fire HD 8", 89, "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", tablet, amazon));
 //        productDataStore.add(new Product("Apple - MacBook Air 13.3\"", 999, "USD", "\n" +

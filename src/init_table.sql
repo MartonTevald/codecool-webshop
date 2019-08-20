@@ -1,7 +1,7 @@
-DROP TABLE IF EXISTS Product, Supplier, prodCat;
+DROP TABLE IF EXISTS product, supplier, prodCat;
 
-CREATE TABLE Supplier(
-    id SERIAL PRIMARY KEY ,
+CREATE TABLE supplier(
+    id  SERIAL PRIMARY KEY ,
     name VARCHAR(50) UNIQUE ,
     description varchar(200));
 
@@ -11,10 +11,13 @@ CREATE TABLE prodCat(
     department varchar(50),
     description varchar(200));
 
-CREATE TABLE Product(
+CREATE TABLE product(
     id SERIAL PRIMARY KEY,
     name varchar(50) UNIQUE ,
     description varchar(200),
     price float8,
-    supplier_id int REFERENCES Supplier(id),
-    prodCat_id int REFERENCES prodCat(id));
+    supplier_id serial REFERENCES supplier(id),
+    prodCat_id serial REFERENCES prodCat(id)
+
+
+                    );

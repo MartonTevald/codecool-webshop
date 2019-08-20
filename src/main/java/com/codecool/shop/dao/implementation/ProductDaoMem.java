@@ -7,9 +7,6 @@ import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,45 +30,9 @@ public class ProductDaoMem extends DatabaseConnection implements ProductDao {
 
     @Override
     public void add(Product product) {
-        try {
-            PreparedStatement stmt = getConnection().prepareStatement("INSERT INTO product (name, description,price,supplier_id,prodcat_id) VALUES (?,?,?,?,?)");
-            stmt.setString(1, product.getName());
-            stmt.setString(2, product.getDescription());
-            stmt.setDouble(3, product.getDefaultPrice());
-            stmt.setInt(4, getSupplierId(product.getSupplier().getName()));
-            stmt.setInt(5, getProdCatId(product.getProductCategory().getName()));
-            stmt.executeQuery();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
 //
 //        product.setId(data.size() + 1);
 //        data.add(product);
-    }
-
-    public int getSupplierId(String name) {
-        try {
-            PreparedStatement stmt = getConnection().prepareStatement("SELECT id FROM supplier WHERE supplier.name = " + name + "");
-            ResultSet result = stmt.executeQuery();
-            return Integer.parseInt(String.valueOf(result));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return 0;
-
-    }
-
-    public int getProdCatId(String name) {
-        try {
-            PreparedStatement stmt = getConnection().prepareStatement("SELECT id FROM prodcat WHERE prodcat.name = " + name + "");
-            ResultSet result = stmt.executeQuery();
-            return Integer.parseInt(String.valueOf(result));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return 0;
     }
 
     @Override

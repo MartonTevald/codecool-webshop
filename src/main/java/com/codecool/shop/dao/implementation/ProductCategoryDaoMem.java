@@ -39,16 +39,6 @@ public class ProductCategoryDaoMem extends DatabaseConnection implements Product
 
     @Override
     public void add(ProductCategory category) {
-        try {
-            PreparedStatement stmt = getConnection().prepareStatement("INSERT INTO prodcat (name, department ,description) VALUES (?,?,?)");
-            stmt.setString(1,category.getName());
-            stmt.setString(2,category.getDepartment());
-            stmt.setString(3,category.getDescription());
-            stmt.executeQuery();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 //        category.setId(data.size() + 1);
 //        data.add(category);
     }
