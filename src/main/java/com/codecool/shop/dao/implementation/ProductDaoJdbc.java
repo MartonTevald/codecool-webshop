@@ -15,6 +15,9 @@ import java.util.List;
 
 public class ProductDaoJdbc extends DatabaseConnection implements ProductDao {
 
+    private ProductCategoryDaoJdbc prodCatJdbc = new ProductCategoryDaoJdbc();
+    private SupplierDaoJdbc suppJdbc = new SupplierDaoJdbc();
+
 
     @Override
     public void add(Product product) {
@@ -73,7 +76,6 @@ public class ProductDaoJdbc extends DatabaseConnection implements ProductDao {
     }
 
 
-
     @Override
     public Product find(int id) {
         return null;
@@ -94,9 +96,6 @@ public class ProductDaoJdbc extends DatabaseConnection implements ProductDao {
 
     @Override
     public List<Product> getAll() {
-        ProductCategoryDaoJdbc prodCatJdbc = new ProductCategoryDaoJdbc();
-        SupplierDaoJdbc suppJdbc = new SupplierDaoJdbc();
-
 
         List<Product> products = new ArrayList<>();
         try {
@@ -108,8 +107,8 @@ public class ProductDaoJdbc extends DatabaseConnection implements ProductDao {
                         resultSet.getFloat("price"),
                         "USD",
                         resultSet.getString("description"),
-                        prodCatJdbc.find(resultSet.getInt("prodcat_id"),
-                                suppJdbc.find(resultSet.getInt("supplier_id"));
+                        prodCatJdbc.find(resultSet.getInt("prodcat_id")),
+                        suppJdbc.find(resultSet.getInt("supplier_id")));
 
                 products.add(product);
             }
@@ -123,11 +122,58 @@ public class ProductDaoJdbc extends DatabaseConnection implements ProductDao {
 
     @Override
     public List<Product> getBy(Supplier supplier) {
+
+
+        List<Product> products = new ArrayList<>();
+
+        int supplierId = getSupplierId(supplier.getName());
+        try {
+            PreparedStatement stmt = getConnection().prepareStatement("SELECT * FROM product WHERE product.supplier_id = ?");
+            stmt.setInt(1, supplierId);
+            ResultSet resultSet = stmt.executeQuery();
+            while (resultSet.next()) {
+                Product product;
+                product = new Product(resultSet.getString("name"),
+                        resultSet.getFloat("price"),
+                        "USD",
+                        resultSet.getString("description"),
+                        prodCatJdbc.find(resultSet.getInt("prodcat_id")),
+                        suppJdbc.find(resultSet.getInt("supplier_id")));
+                products.add(product);
+            }
+            return products;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
     @Override
     public List<Product> getBy(ProductCategory productCategory) {
+
+        List<Product> products = new ArrayList<>();
+
+        int catId = getSupplierId(productCategory.getName());
+        try {
+            PreparedStatement stmt = getConnection().prepareStatement("SELECT * FROM product WHERE product.prodcat_id = ?");
+            stmt.setInt(1, catId);
+            ResultSet resultSet = stmt.executeQuery();
+            while (resultSet.next()) {
+                Product product;
+                product = new Product(resultSet.getString("name"),
+                        resultSet.getFloat("price"),
+                        "USD",
+                        resultSet.getString("description"),
+                        prodCatJdbc.find(resultSet.getInt("prodcat_id")),
+                        suppJdbc.find(resultSet.getInt("supplier_id")));
+                products.add(product);
+            }
+            return products;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 }
