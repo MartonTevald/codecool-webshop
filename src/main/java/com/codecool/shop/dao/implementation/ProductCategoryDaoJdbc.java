@@ -30,7 +30,7 @@ public class ProductCategoryDaoJdbc extends DatabaseConnection implements Produc
     public ProductCategory find(int id) {
         ProductCategory result;
         try {
-            PreparedStatement stmt = getConnection().prepareStatement("SELECT * FROM prodcat WHERE prodcat_id = ?");
+            PreparedStatement stmt = getConnection().prepareStatement("SELECT * FROM prodcat WHERE prodcat.id = ?");
             stmt.setString(1, String.valueOf(id));
             ResultSet resultSet = stmt.executeQuery();
             result = new ProductCategory(resultSet.getString("name"), resultSet.getString("department"), resultSet.getString("description"));
@@ -44,7 +44,7 @@ public class ProductCategoryDaoJdbc extends DatabaseConnection implements Produc
     @Override
     public void remove(int id) {
         try {
-            PreparedStatement stmt = getConnection().prepareStatement("DELETE FROM prodcat WHERE prodcat_id = ?");
+            PreparedStatement stmt = getConnection().prepareStatement("DELETE FROM prodcat WHERE prodcat.id = ?");
             stmt.setString(1, String.valueOf(id));
             stmt.executeQuery();
         } catch (SQLException e) {
