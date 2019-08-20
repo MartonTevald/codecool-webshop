@@ -49,9 +49,9 @@ public class Initializer implements ServletContextListener {
                 " be transported and conveniently used in temporary spaces such as on airplanes, in libraries, temporary offices, and at meetings.");
         prodCatJdbc.add(laptop);
         //        productCategoryDataStore.add(laptop);
-        ProductCategory accessoiries = new ProductCategory("Accessories", "Hardware", "Other products, accessories.");
-        prodCatJdbc.add(accessoiries);
-//        productCategoryDataStore.add(accessoiries);
+        ProductCategory accessories = new ProductCategory("Accessories", "Hardware", "Other products, accessories.");
+        prodCatJdbc.add(accessories);
+//        productCategoryDataStore.add(accessories);
 
         //setting up products and printing it
 
@@ -63,6 +63,6 @@ public class Initializer implements ServletContextListener {
         prodJdbc.add(new Product("Lenovo ThinkPad Yoga 370 Touch Laptop", 750, "USD", "Combining power, performance, and portability, the stylish yet durable ThinkPad Yoga 370 gives you the freedom to work/play anywhere. Enjoy using it in different ways-from laptop to tablet and anything in between. Save time by writing," +
                 " highlighting, or drawing directly on screen. Take delight in seeing your visuals, presentations, and movies come to life on the vibrant 13.3\" display. And then relax knowing the Yoga 370 has an all-day battery life and comes with a worldwide warranty.", laptop, lenovo));
         prodJdbc.add(new Product("Apple iPad Pro (12.9-inch, Wi-Fi, 256GB) ", 989, "USD", "mmensely powerful, portable, and capable, the 12.9-inch iPad Pro features a redesigned Retina display that is the most advanced on the planet.", tablet, apple));
-        prodJdbc.add(new Product("Java 50", 9999, "USD", "The ultimate tool if it comes to change geoposition and you are a developer.", accessoiries, java));
+        prodJdbc.add(new Product("Java 50", 9999, "USD", "The ultimate tool if it comes to change geoposition and you are a developer.", accessories, java));
     }
 }
