@@ -4,10 +4,7 @@ import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.dao.implementation.ProductCategoryDaoJdbc;
-import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
-import com.codecool.shop.dao.implementation.ProductDaoMem;
-import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
@@ -32,17 +29,24 @@ public class ProductController extends HttpServlet {
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
         ProductCategoryDao productCatDataStore = ProductCategoryDaoMem.getInstance();
-        ProductCategoryDaoJdbc prodJdbc = new ProductCategoryDaoJdbc();
+
+        ProductDaoJdbc prodJdbc = new ProductDaoJdbc();
+        ProductCategoryDaoJdbc prodCatJdbc = new ProductCategoryDaoJdbc();
+        SupplierDaoJdbc suppJdbc = new SupplierDaoJdbc();
 
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-        context.setVariable("category", productCategoryDataStore.getAll());
+//        context.setVariable("category", productCategoryDataStore.getAll());
+        context.setVariable("category", prodCatJdbc.getAll());
 //        context.setVariable("products", productDataStore.getAll());
         context.setVariable("products", prodJdbc.getAll());
-        context.setVariable("supplier", supplierDataStore.getAll());
-        context.setVariable("categoryFilter", productCatDataStore.getAll());
-        context.setVariable("supplierFilter", supplierDataStore.getAll());
+//        context.setVariable("supplier", supplierDataStore.getAll());
+        context.setVariable("supplier", suppJdbc.getAll());
+//        context.setVariable("categoryFilter", productCatDataStore.getAll());
+        context.setVariable("categoryFilter", prodCatJdbc.getAll());
+//        context.setVariable("supplierFilter", supplierDataStore.getAll());
+        context.setVariable("supplierFilter", suppJdbc.getAll());
         engine.process("product/index.html", context, resp.getWriter());
     }
 

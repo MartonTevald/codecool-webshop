@@ -31,10 +31,12 @@ public class ProductCategoryDaoJdbc extends DatabaseConnection implements Produc
         ProductCategory result;
         try {
             PreparedStatement stmt = getConnection().prepareStatement("SELECT * FROM prodcat WHERE prodcat.id = ?");
-            stmt.setString(1, String.valueOf(id));
+            stmt.setInt(1, id);
             ResultSet resultSet = stmt.executeQuery();
-            result = new ProductCategory(resultSet.getString("name"), resultSet.getString("department"), resultSet.getString("description"));
-            return result;
+            while (resultSet.next()) {
+                result = new ProductCategory(resultSet.getString("name"), resultSet.getString("department"), resultSet.getString("description"));
+                return result;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -58,7 +60,7 @@ public class ProductCategoryDaoJdbc extends DatabaseConnection implements Produc
         try {
             PreparedStatement stmt = getConnection().prepareStatement("SELECT * FROM prodcat");
             ResultSet resultSet = stmt.executeQuery();
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 ProductCategory productCategory = new ProductCategory(resultSet.getString("name"), resultSet.getString("department"), resultSet.getString("description"));
                 prodcatres.add(productCategory);
             }

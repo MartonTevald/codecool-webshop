@@ -32,11 +32,13 @@ public class SupplierDaoJdbc extends DatabaseConnection implements SupplierDao {
         try {
             PreparedStatement stmt = getConnection().prepareStatement(
                     "SELECT * FROM supplier WHERE supplier.id = ?");
-            stmt.setString(1, String.valueOf(id));
+            stmt.setInt(1, id);
             ResultSet resultSet = stmt.executeQuery();
-            result = new Supplier(resultSet.getString("name"),
-                    resultSet.getString("description"));
-            return result;
+            while (resultSet.next()) {
+                result = new Supplier(resultSet.getString("name"),
+                        resultSet.getString("description"));
+                return result;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
