@@ -4,6 +4,7 @@ import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
+import com.codecool.shop.dao.implementation.ProductCategoryDaoJdbc;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
@@ -31,12 +32,14 @@ public class ProductController extends HttpServlet {
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
         ProductCategoryDao productCatDataStore = ProductCategoryDaoMem.getInstance();
+        ProductCategoryDaoJdbc prodJdbc = new ProductCategoryDaoJdbc();
 
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
         context.setVariable("category", productCategoryDataStore.getAll());
-        context.setVariable("products", productDataStore.getAll());
+//        context.setVariable("products", productDataStore.getAll());
+        context.setVariable("products", prodJdbc.getAll());
         context.setVariable("supplier", supplierDataStore.getAll());
         context.setVariable("categoryFilter", productCatDataStore.getAll());
         context.setVariable("supplierFilter", supplierDataStore.getAll());
