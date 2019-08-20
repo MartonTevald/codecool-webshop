@@ -65,7 +65,7 @@ public class ProductDaoMem extends DatabaseConnection implements ProductDao {
 
     public int getProdCatId(String name) {
         try {
-            PreparedStatement stmt = getConnection().prepareStatement("SELECT id FROM prodcat WHERE supplier.name = " + name + "");
+            PreparedStatement stmt = getConnection().prepareStatement("SELECT id FROM prodcat WHERE prodcat.name = " + name + "");
             ResultSet result = stmt.executeQuery();
             return Integer.parseInt(String.valueOf(result));
         } catch (SQLException e) {
