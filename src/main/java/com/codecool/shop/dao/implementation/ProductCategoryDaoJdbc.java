@@ -27,15 +27,16 @@ public class ProductCategoryDaoJdbc extends DatabaseConnection implements Produc
 
     @Override
     public ProductCategory find(int id) {
+        ProductCategory result;
         try {
             PreparedStatement stmt = getConnection().prepareStatement("SELECT * FROM prodcat WHERE prodcat_id = ?");
             stmt.setString(1, String.valueOf(id));
-            ResultSet result = stmt.executeQuery();
-            return result.;
+            ResultSet qr = stmt.executeQuery();
+            result = new ProductCategory(qr.getString("name"), qr.getString("department"), qr.getString("description"));
+            return result;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return null;
     }
 
@@ -52,6 +53,15 @@ public class ProductCategoryDaoJdbc extends DatabaseConnection implements Produc
 
     @Override
     public List<ProductCategory> getAll() {
+        try {
+            PreparedStatement stmt = getConnection().prepareStatement("SELECT * FROM prodcat");
+            ResultSet qr = stmt.executeQuery();
+            while (qr.next()){
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 }
