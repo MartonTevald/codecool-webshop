@@ -39,7 +39,7 @@ public class ProductDaoMem extends DatabaseConnection implements ProductDao {
             stmt.setString(2, product.getDescription());
             stmt.setDouble(3, product.getDefaultPrice());
             stmt.setInt(4, getSupplierId(product.getSupplier().getName()));
-            stmt.setInt(5, getProdCatId(product.getProductCategory().getName());
+            stmt.setInt(5, getProdCatId(product.getProductCategory().getName()));
             stmt.executeQuery();
 
         } catch (SQLException e) {
