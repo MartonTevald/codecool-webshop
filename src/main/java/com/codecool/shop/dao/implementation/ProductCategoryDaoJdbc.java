@@ -5,6 +5,7 @@ import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.model.ProductCategory;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -26,12 +27,27 @@ public class ProductCategoryDaoJdbc extends DatabaseConnection implements Produc
 
     @Override
     public ProductCategory find(int id) {
+        try {
+            PreparedStatement stmt = getConnection().prepareStatement("SELECT * FROM prodcat WHERE prodcat_id = ?");
+            stmt.setString(1, String.valueOf(id));
+            ResultSet result = stmt.executeQuery();
+            return result.;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return null;
     }
 
     @Override
     public void remove(int id) {
-
+        try {
+            PreparedStatement stmt = getConnection().prepareStatement("DELETE FROM prodcat WHERE prodcat_id = ?");
+            stmt.setString(1, String.valueOf(id));
+            stmt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
