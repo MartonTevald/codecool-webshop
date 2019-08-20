@@ -1,13 +1,16 @@
 package com.codecool.shop.dao.implementation;
 
 
+import com.codecool.shop.dao.DatabaseConnection;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.model.ProductCategory;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductCategoryDaoMem implements ProductCategoryDao {
+public class ProductCategoryDaoMem extends DatabaseConnection implements ProductCategoryDao {
 
     private List<ProductCategory> data = new ArrayList<>();
     private static ProductCategoryDaoMem instance = null;
@@ -36,8 +39,18 @@ public class ProductCategoryDaoMem implements ProductCategoryDao {
 
     @Override
     public void add(ProductCategory category) {
-        category.setId(data.size() + 1);
-        data.add(category);
+        try {
+            PreparedStatement stmt = getConnection().prepareStatement("INSERT INTO prodcat (name, department ,description) VALUES (?,?,?)");
+            stmt.setString(1,category.getName());
+            stmt.setString(2,category.getDepartment());
+            stmt.setString(3,category.getDescription());
+            stmt.executeQuery();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+//        category.setId(data.size() + 1);
+//        data.add(category);
     }
 
     @Override
