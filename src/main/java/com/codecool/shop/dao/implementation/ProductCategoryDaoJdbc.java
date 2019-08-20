@@ -32,8 +32,8 @@ public class ProductCategoryDaoJdbc extends DatabaseConnection implements Produc
         try {
             PreparedStatement stmt = getConnection().prepareStatement("SELECT * FROM prodcat WHERE prodcat_id = ?");
             stmt.setString(1, String.valueOf(id));
-            ResultSet qr = stmt.executeQuery();
-            result = new ProductCategory(qr.getString("name"), qr.getString("department"), qr.getString("description"));
+            ResultSet resultSet = stmt.executeQuery();
+            result = new ProductCategory(resultSet.getString("name"), resultSet.getString("department"), resultSet.getString("description"));
             return result;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -57,9 +57,9 @@ public class ProductCategoryDaoJdbc extends DatabaseConnection implements Produc
         List<ProductCategory> prodcatres = new ArrayList<>();
         try {
             PreparedStatement stmt = getConnection().prepareStatement("SELECT * FROM prodcat");
-            ResultSet qr = stmt.executeQuery();
-            while (qr.next()){
-                ProductCategory productCategory = new ProductCategory(qr.getString("name"), qr.getString("department"), qr.getString("description"));
+            ResultSet resultSet = stmt.executeQuery();
+            while (resultSet.next()){
+                ProductCategory productCategory = new ProductCategory(resultSet.getString("name"), resultSet.getString("department"), resultSet.getString("description"));
                 prodcatres.add(productCategory);
             }
             return prodcatres;
