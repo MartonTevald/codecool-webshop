@@ -13,12 +13,13 @@ import java.util.List;
 public class ProductCategoryDaoJdbc extends DatabaseConnection implements ProductCategoryDao {
     @Override
     public void add(ProductCategory category) {
-        try {
-            PreparedStatement stmt = getConnection().prepareStatement("INSERT INTO prodcat (name, department ,description) VALUES (?,?,?)");
+        try (PreparedStatement stmt = getConnection().prepareStatement(
+                "INSERT INTO prodcat (name, department ,description) " +
+                        "VALUES (?,?,?)")) {
             stmt.setString(1, category.getName());
             stmt.setString(2, category.getDepartment());
             stmt.setString(3, category.getDescription());
-            stmt.executeUpdate();
+            stmt.execute();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -29,8 +30,9 @@ public class ProductCategoryDaoJdbc extends DatabaseConnection implements Produc
     @Override
     public ProductCategory find(int id) {
         ProductCategory result;
-        try {
-            PreparedStatement stmt = getConnection().prepareStatement("SELECT * FROM prodcat WHERE prodcat.id = ?");
+        try (PreparedStatement stmt = getConnection().prepareStatement(
+                "SELECT * FROM prodcat " +
+                        "WHERE prodcat.id = ?")) {
             stmt.setInt(1, id);
             ResultSet resultSet = stmt.executeQuery();
             while (resultSet.next()) {
@@ -39,6 +41,7 @@ public class ProductCategoryDaoJdbc extends DatabaseConnection implements Produc
                         resultSet.getString("name"),
                         resultSet.getString("department"),
                         resultSet.getString("description"));
+
                 return result;
             }
         } catch (SQLException e) {
@@ -49,8 +52,9 @@ public class ProductCategoryDaoJdbc extends DatabaseConnection implements Produc
 
     @Override
     public void remove(int id) {
-        try {
-            PreparedStatement stmt = getConnection().prepareStatement("DELETE FROM prodcat WHERE prodcat.id = ?");
+        try (PreparedStatement stmt = getConnection().prepareStatement(
+                "DELETE FROM prodcat " +
+                        "WHERE prodcat.id = ?")) {
             stmt.setString(1, String.valueOf(id));
             stmt.executeQuery();
         } catch (SQLException e) {
@@ -61,8 +65,8 @@ public class ProductCategoryDaoJdbc extends DatabaseConnection implements Produc
     @Override
     public List<ProductCategory> getAll() {
         List<ProductCategory> prodcatres = new ArrayList<>();
-        try {
-            PreparedStatement stmt = getConnection().prepareStatement("SELECT * FROM prodcat");
+        try (PreparedStatement stmt = getConnection().prepareStatement(
+                "SELECT * FROM prodcat")) {
             ResultSet resultSet = stmt.executeQuery();
             while (resultSet.next()) {
                 ProductCategory productCategory = new ProductCategory(
@@ -72,6 +76,7 @@ public class ProductCategoryDaoJdbc extends DatabaseConnection implements Produc
                         resultSet.getString("description"));
                 prodcatres.add(productCategory);
             }
+
             return prodcatres;
         } catch (SQLException e) {
             e.printStackTrace();

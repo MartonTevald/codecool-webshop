@@ -1,7 +1,6 @@
 package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.dao.DatabaseConnection;
-import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
@@ -13,7 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class    ProductDaoJdbc extends DatabaseConnection implements ProductDao {
+public class ProductDaoJdbc extends DatabaseConnection implements ProductDao {
 
     private ProductCategoryDaoJdbc prodCatJdbc = new ProductCategoryDaoJdbc();
     private SupplierDaoJdbc suppJdbc = new SupplierDaoJdbc();
@@ -21,8 +20,9 @@ public class    ProductDaoJdbc extends DatabaseConnection implements ProductDao 
 
     @Override
     public void add(Product product) {
-        try {
-            PreparedStatement stmt = getConnection().prepareStatement("INSERT INTO product (name, description,price,supplier_id,prodcat_id) VALUES (?,?,?,?,?)");
+        try (PreparedStatement stmt = getConnection().prepareStatement(
+                "INSERT INTO product (name, description,price,supplier_id,prodcat_id) " +
+                        "VALUES (?,?,?,?,?)")) {
             stmt.setString(1, product.getName());
             stmt.setString(2, product.getDescription());
             stmt.setDouble(3, product.getDefaultPrice());
@@ -40,8 +40,9 @@ public class    ProductDaoJdbc extends DatabaseConnection implements ProductDao 
 
     public int getSupplierId(String name) {
         String result = null;
-        try {
-            PreparedStatement stmt = getConnection().prepareStatement("SELECT supplier.id FROM supplier WHERE supplier.name = ?");
+        try (PreparedStatement stmt = getConnection().prepareStatement(
+                "SELECT supplier.id FROM supplier " +
+                        "WHERE supplier.name = ?")) {
             stmt.setString(1, name);
             ResultSet res = stmt.executeQuery();
 
@@ -59,9 +60,8 @@ public class    ProductDaoJdbc extends DatabaseConnection implements ProductDao 
     public int getProdCatId(String name) {
         String result = null;
 
-        try {
-            PreparedStatement stmt = getConnection().prepareStatement("" +
-                    "SELECT prodcat.id FROM prodcat WHERE name = ?");
+        try (PreparedStatement stmt = getConnection().prepareStatement(
+                "SELECT prodcat.id FROM prodcat WHERE name = ?")) {
             stmt.setString(1, name);
             ResultSet res = stmt.executeQuery();
 
@@ -79,8 +79,9 @@ public class    ProductDaoJdbc extends DatabaseConnection implements ProductDao 
     @Override
     public Product find(int id) {
         Product result;
-        try {
-            PreparedStatement stmt = getConnection().prepareStatement("SELECT * FROM product WHERE product.id = ?");
+        try (PreparedStatement stmt = getConnection().prepareStatement(
+                "SELECT * FROM product " +
+                        "WHERE product.id = ?")) {
             stmt.setInt(1, id);
             ResultSet resultSet = stmt.executeQuery();
             while (resultSet.next()) {
@@ -103,10 +104,12 @@ public class    ProductDaoJdbc extends DatabaseConnection implements ProductDao 
 
     @Override
     public void remove(int id) {
-        try {
-            PreparedStatement stmt = getConnection().prepareStatement("DELETE FROM product WHERE product.id = ?");
+        try (PreparedStatement stmt = getConnection().prepareStatement(
+                "DELETE FROM product " +
+                        "WHERE product.id = ?")) {
             stmt.setString(1, String.valueOf(id));
             stmt.executeQuery();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -117,8 +120,8 @@ public class    ProductDaoJdbc extends DatabaseConnection implements ProductDao 
     public List<Product> getAll() {
 
         List<Product> products = new ArrayList<>();
-        try {
-            PreparedStatement stmt = getConnection().prepareStatement("SELECT * FROM product");
+        try (PreparedStatement stmt = getConnection().prepareStatement(
+                "SELECT * FROM product")) {
             ResultSet resultSet = stmt.executeQuery();
             while (resultSet.next()) {
                 Product product;
@@ -133,6 +136,7 @@ public class    ProductDaoJdbc extends DatabaseConnection implements ProductDao 
 
                 products.add(product);
             }
+
             return products;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -148,8 +152,9 @@ public class    ProductDaoJdbc extends DatabaseConnection implements ProductDao 
         List<Product> products = new ArrayList<>();
 
         int supplierId = getSupplierId(supplier.getName());
-        try {
-            PreparedStatement stmt = getConnection().prepareStatement("SELECT * FROM product WHERE product.supplier_id = ?");
+        try (PreparedStatement stmt = getConnection().prepareStatement(
+                "SELECT * FROM product " +
+                        "WHERE product.supplier_id = ?")) {
             stmt.setInt(1, supplierId);
             ResultSet resultSet = stmt.executeQuery();
             while (resultSet.next()) {
@@ -164,6 +169,7 @@ public class    ProductDaoJdbc extends DatabaseConnection implements ProductDao 
                         suppJdbc.find(resultSet.getInt("supplier_id")));
                 products.add(product);
             }
+
             return products;
 
         } catch (SQLException e) {
@@ -178,8 +184,9 @@ public class    ProductDaoJdbc extends DatabaseConnection implements ProductDao 
         List<Product> products = new ArrayList<>();
 
         int supId = getProdCatId(productCategory.getName());
-        try {
-            PreparedStatement stmt = getConnection().prepareStatement("SELECT * FROM product WHERE product.prodcat_id = ?");
+        try (PreparedStatement stmt = getConnection().prepareStatement(
+                "SELECT * FROM product " +
+                        "WHERE product.prodcat_id = ?")) {
             stmt.setInt(1, supId);
             ResultSet resultSet = stmt.executeQuery();
             while (resultSet.next()) {
@@ -194,6 +201,7 @@ public class    ProductDaoJdbc extends DatabaseConnection implements ProductDao 
                         suppJdbc.find(resultSet.getInt("supplier_id")));
                 products.add(product);
             }
+
             return products;
 
         } catch (SQLException e) {
