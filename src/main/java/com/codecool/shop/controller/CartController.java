@@ -2,6 +2,7 @@ package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.dao.implementation.ProductDaoJdbc;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.Product;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 @WebServlet(urlPatterns = {"/cart"})
@@ -40,14 +42,19 @@ public class CartController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        ProductDao productDataStore = ProductDaoMem.getInstance();
+        ProductDao productDataStore = new ProductDaoJdbc();
+
         Cart cart = Cart.getInstance();
+
+
 
         String addToCart = req.getParameter("addToCartButton");
         if (addToCart != null) {
             int productID = Integer.parseInt(addToCart);
             Product prod = productDataStore.find(productID);
             cart.addToCart(prod);
+            HashMap<Product,Integer> c = cart.getCart();
+            System.out.println(c);
             resp.sendRedirect(req.getContextPath() + "/");
         }
 
@@ -58,7 +65,7 @@ public class CartController extends HttpServlet {
             cart.addToCart(product);
         }
 
-        String removeFromToCart = req.getParameter("remove");
+            String removeFromToCart = req.getParameter("remove");
         if (removeFromToCart != null) {
             int id = Integer.parseInt(removeFromToCart);
             Product product = productDataStore.find(id);
