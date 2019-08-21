@@ -39,13 +39,25 @@ public class Cart {
         }
         return sum;
     }
+
+    public Product checkProduct(Product product) {
+        for (Product prod : cart.keySet()) {
+            if (prod.getId() == product.getId()) {
+                return prod;
+            }
+        }
+        return null;
+    }
+
     public void addToCart(Product product) {
-        if (cart.containsKey(product)) {
-            Integer actual = cart.get(product) + 1;
-            cart.put(product, actual);
+        Product prod = checkProduct(product);
+        if (prod != null) {
+            Integer actual = cart.get(prod) + 1;
+            cart.put(prod, actual);
         } else {
             cart.put(product, 1);
         }
+
     }
 
     public void removeFromCart(Product product) {
@@ -53,7 +65,7 @@ public class Cart {
             Integer actual = cart.get(product);
             if (actual > 1) {
                 cart.put(product, cart.get(product) - 1);
-            }else{
+            } else {
                 cart.remove(product);
             }
         }
