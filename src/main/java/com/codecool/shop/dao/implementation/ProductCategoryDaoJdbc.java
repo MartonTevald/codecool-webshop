@@ -18,7 +18,7 @@ public class ProductCategoryDaoJdbc extends DatabaseConnection implements Produc
             stmt.setString(1, category.getName());
             stmt.setString(2, category.getDepartment());
             stmt.setString(3, category.getDescription());
-            stmt.executeQuery();
+            stmt.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();

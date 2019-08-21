@@ -29,7 +29,7 @@ public class    ProductDaoJdbc extends DatabaseConnection implements ProductDao 
             stmt.setInt(4, getSupplierId(product.getSupplier().getName()));
             stmt.setInt(5, getProdCatId(product.getProductCategory().getName()));
 
-            stmt.executeQuery();
+            stmt.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
