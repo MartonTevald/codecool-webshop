@@ -6,6 +6,7 @@ import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,9 +21,10 @@ public class ProductDaoJdbc extends DatabaseConnection implements ProductDao {
 
     @Override
     public void add(Product product) {
-        try (PreparedStatement statement = getConnection().prepareStatement(
-                "INSERT INTO product (name, description,price,supplier_id,prodcat_id) " +
-                        "VALUES (?,?,?,?,?)")) {
+        String query = "INSERT INTO product (name, description,price,supplier_id,prodcat_id) " +
+                "VALUES (?,?,?,?,?)";
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, product.getName());
             statement.setString(2, product.getDescription());
             statement.setDouble(3, product.getDefaultPrice());
@@ -35,14 +37,14 @@ public class ProductDaoJdbc extends DatabaseConnection implements ProductDao {
             e.printStackTrace();
         }
 
-
     }
 
     public int getSupplierId(String name) {
         String result = null;
-        try (PreparedStatement statement = getConnection().prepareStatement(
-                "SELECT supplier.id FROM supplier " +
-                        "WHERE supplier.name = ?")) {
+        String query = "SELECT supplier.id FROM supplier " +
+                "WHERE supplier.name = ?";
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, name);
             ResultSet res = statement.executeQuery();
 
@@ -59,9 +61,9 @@ public class ProductDaoJdbc extends DatabaseConnection implements ProductDao {
 
     public int getProdCatId(String name) {
         String result = null;
-
-        try (PreparedStatement statement = getConnection().prepareStatement(
-                "SELECT prodcat.id FROM prodcat WHERE name = ?")) {
+        String query = "SELECT prodcat.id FROM prodcat WHERE name = ?";
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, name);
             ResultSet res = statement.executeQuery();
 
@@ -79,9 +81,10 @@ public class ProductDaoJdbc extends DatabaseConnection implements ProductDao {
     @Override
     public Product find(int id) {
         Product result;
-        try (PreparedStatement statement = getConnection().prepareStatement(
-                "SELECT * FROM product " +
-                        "WHERE product.id = ?")) {
+        String query = "SELECT * FROM product " +
+                "WHERE product.id = ?";
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -104,9 +107,10 @@ public class ProductDaoJdbc extends DatabaseConnection implements ProductDao {
 
     @Override
     public void remove(int id) {
-        try (PreparedStatement statement = getConnection().prepareStatement(
-                "DELETE FROM product " +
-                        "WHERE product.id = ?")) {
+        String query = "DELETE FROM product " +
+                "WHERE product.id = ?";
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, String.valueOf(id));
             statement.executeQuery();
 
@@ -118,10 +122,10 @@ public class ProductDaoJdbc extends DatabaseConnection implements ProductDao {
 
     @Override
     public List<Product> getAll() {
-
+        String query = "SELECT * FROM product";
         List<Product> products = new ArrayList<>();
-        try (PreparedStatement statement = getConnection().prepareStatement(
-                "SELECT * FROM product")) {
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Product product;
@@ -145,14 +149,12 @@ public class ProductDaoJdbc extends DatabaseConnection implements ProductDao {
 
     @Override
     public List<Product> getBy(Supplier supplier) {
-
-
         List<Product> products = new ArrayList<>();
-
+        String query = "SELECT * FROM product " +
+                "WHERE product.supplier_id = ?";
         int supplierId = getSupplierId(supplier.getName());
-        try (PreparedStatement statement = getConnection().prepareStatement(
-                "SELECT * FROM product " +
-                        "WHERE product.supplier_id = ?")) {
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, supplierId);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -176,13 +178,12 @@ public class ProductDaoJdbc extends DatabaseConnection implements ProductDao {
 
     @Override
     public List<Product> getBy(ProductCategory productCategory) {
-
         List<Product> products = new ArrayList<>();
-
+        String query = "SELECT * FROM product " +
+                "WHERE product.prodcat_id = ?";
         int supId = getProdCatId(productCategory.getName());
-        try (PreparedStatement statement = getConnection().prepareStatement(
-                "SELECT * FROM product " +
-                        "WHERE product.prodcat_id = ?")) {
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, supId);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
