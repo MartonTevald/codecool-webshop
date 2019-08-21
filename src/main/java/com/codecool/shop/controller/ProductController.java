@@ -61,23 +61,21 @@ public class ProductController extends HttpServlet {
         if (catId != -1 & supId == -1) {
             ProductCategory category = productCatDataStore.find(catId);
             products = productDataStore.getBy(category);
-            context.setVariable("category",category);
+            context.setVariable("category", category);
         }
-
-        if(catId == -1 & supId != -1){
+        if (catId == -1 & supId != -1) {
             Supplier supplier = supplierDataStore.find(supId);
             products = productDataStore.getBy(supplier);
-            context.setVariable("category",productCatDataStore.getAll());
+            context.setVariable("category", productCatDataStore.getAll());
         }
-        if(catId != -1 & supId != -1){
+        if (catId != -1 & supId != -1) {
             ProductCategory category = productCatDataStore.find(catId);
             Supplier supplier = supplierDataStore.find(supId);
             products = productDataStore.getBy(supplier);
-            context.setVariable("category",category);
+            context.setVariable("category", category);
 
-        }else {
-
-
+        }
+        if (catId == -1 & supId == -1) {
             resp.sendRedirect("/");
         }
         context.setVariable("products", products);
