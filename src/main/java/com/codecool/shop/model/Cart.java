@@ -39,7 +39,6 @@ public class Cart {
         }
         return sum;
     }
-
     public void addToCart(Product product) {
         if (cart.containsKey(product)) {
             Integer actual = cart.get(product) + 1;

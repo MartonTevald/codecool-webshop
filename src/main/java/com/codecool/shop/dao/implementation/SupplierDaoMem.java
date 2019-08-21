@@ -1,12 +1,15 @@
 package com.codecool.shop.dao.implementation;
 
+import com.codecool.shop.dao.DatabaseConnection;
 import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.model.Supplier;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SupplierDaoMem implements SupplierDao {
+public class SupplierDaoMem extends DatabaseConnection implements SupplierDao {
 
     private List<Supplier> data = new ArrayList<>();
     private static SupplierDaoMem instance = null;
@@ -26,18 +29,18 @@ public class SupplierDaoMem implements SupplierDao {
 
     @Override
     public void add(Supplier supplier) {
-        supplier.setId(data.size() + 1);
-        data.add(supplier);
+//        supplier.setId(data.size() + 1);
+//        data.add(supplier);
     }
 
-    public Supplier find(String name) {
-        for (Supplier sup : data) {
-            if (name.equals(sup.getName())) {
-                return sup;
-            }
-        }
-        return null;
-    }
+//    public Supplier find(String name) {
+//        for (Supplier sup : data) {
+//            if (name.equals(sup.getName())) {
+//                return sup;
+//            }
+//        }
+//        return null;
+//    }
 
     @Override
     public Supplier find(int id) {

@@ -4,9 +4,7 @@ import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
-import com.codecool.shop.dao.implementation.ProductDaoMem;
-import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
@@ -27,10 +25,9 @@ public class ProductController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ProductDao productDataStore = ProductDaoMem.getInstance();
-        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-        SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
-        ProductCategoryDao productCatDataStore = ProductCategoryDaoMem.getInstance();
+        ProductDao productDataStore = new ProductDaoJdbc();
+        ProductCategoryDao productCategoryDataStore = new ProductCategoryDaoJdbc();
+        SupplierDao supplierDataStore = new SupplierDaoJdbc();
 
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
@@ -38,54 +35,50 @@ public class ProductController extends HttpServlet {
         context.setVariable("category", productCategoryDataStore.getAll());
         context.setVariable("products", productDataStore.getAll());
         context.setVariable("supplier", supplierDataStore.getAll());
-        context.setVariable("categoryFilter", productCatDataStore.getAll());
+        context.setVariable("categoryFilter", productCategoryDataStore.getAll());
         context.setVariable("supplierFilter", supplierDataStore.getAll());
         engine.process("product/index.html", context, resp.getWriter());
     }
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        ProductDao productDataStore = ProductDaoMem.getInstance();
-        SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
-        ProductCategoryDao productCatDataStore = ProductCategoryDaoMem.getInstance();
+        ProductDao productDataStore = new ProductDaoJdbc();
+        SupplierDao supplierDataStore = new SupplierDaoJdbc();
+        ProductCategoryDao productCatDataStore = new ProductCategoryDaoJdbc();
         List<Product> products = null;
-
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
         context.setVariable("categoryFilter", productCatDataStore.getAll());
         context.setVariable("supplierFilter", supplierDataStore.getAll());
 
-        int filterCat = Integer.parseInt(req.getParameter("filterCat"));
-        int filterSup = Integer.parseInt(req.getParameter("filterSup"));
 
-        ProductCategory category = productCatDataStore.find(filterCat);
-        Supplier supplier = supplierDataStore.find(filterSup);
+        int catId = Integer.parseInt(req.getParameter("catId"));
+        int supId = Integer.parseInt(req.getParameter("supId"));
 
-
-        if (filterSup != -1 || filterCat != -1) {
-            if (category != null & supplier == null) {
-                products = productDataStore.getBy(category);
-                context.setVariable("category", category);
-
-            } else if (supplier != null & category == null) {
-                products = productDataStore.getBy(supplier);
-                context.setVariable("category", ProductCategoryDaoMem.getInstance().getAll());
-
-            } else if (category != null & supplier != null) {
-                products = productDataStore.getBy(supplier);
-                context.setVariable("category", category);
-                context.setVariable("supplier", supplier);
-            }
-            context.setVariable("products", products);
-
-        } else {
-            resp.sendRedirect("/");
+        if (catId != -1 & supId == -1) {
+            ProductCategory category = productCatDataStore.find(catId);
+            products = productDataStore.getBy(category);
+            context.setVariable("category", category);
+        }
+        if (catId == -1 & supId != -1) {
+            Supplier supplier = supplierDataStore.find(supId);
+            products = productDataStore.getBy(supplier);
+            context.setVariable("category", productCatDataStore.getAll());
+        }
+        if (catId != -1 & supId != -1) {
+            ProductCategory category = productCatDataStore.find(catId);
+            Supplier supplier = supplierDataStore.find(supId);
+            products = productDataStore.getBy(supplier);
+            context.setVariable("category", category);
 
         }
+        if (catId == -1 & supId == -1) {
+            resp.sendRedirect("/");
+        }
+        context.setVariable("products", products);
         engine.process("product/index.html", context, resp.getWriter());
 
 
     }
-
 }
