@@ -41,7 +41,6 @@ public class ProductCategoryDaoJdbc extends DatabaseConnection implements Produc
                         resultSet.getString("name"),
                         resultSet.getString("department"),
                         resultSet.getString("description"));
-
                 return result;
             }
         } catch (SQLException e) {
@@ -76,7 +75,6 @@ public class ProductCategoryDaoJdbc extends DatabaseConnection implements Produc
                         resultSet.getString("description"));
                 prodcatres.add(productCategory);
             }
-
             return prodcatres;
         } catch (SQLException e) {
             e.printStackTrace();

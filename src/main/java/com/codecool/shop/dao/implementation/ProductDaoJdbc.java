@@ -136,14 +136,12 @@ public class ProductDaoJdbc extends DatabaseConnection implements ProductDao {
 
                 products.add(product);
             }
-
             return products;
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
     }
-
 
     @Override
     public List<Product> getBy(Supplier supplier) {
@@ -169,9 +167,7 @@ public class ProductDaoJdbc extends DatabaseConnection implements ProductDao {
                         suppJdbc.find(resultSet.getInt("supplier_id")));
                 products.add(product);
             }
-
             return products;
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
