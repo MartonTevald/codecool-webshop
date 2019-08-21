@@ -30,7 +30,6 @@ public class ProductController extends HttpServlet {
         SupplierDao supplierDataStore = new SupplierDaoJdbc();
 
 
-
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
         context.setVariable("category", productCategoryDataStore.getAll());
@@ -48,42 +47,42 @@ public class ProductController extends HttpServlet {
         ProductCategoryDao productCatDataStore = new ProductCategoryDaoJdbc();
         List<Product> products = null;
 
+        List<ProductCategory> ll = productCatDataStore.getAll();
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
         context.setVariable("categoryFilter", productCatDataStore.getAll());
         context.setVariable("supplierFilter", supplierDataStore.getAll());
 
-        int filterCat = Integer.parseInt(req.getParameter("filterCat"));
-        int filterSup = Integer.parseInt(req.getParameter("filterSup"));
 
-        ProductCategory category = productCatDataStore.find(filterCat);
-        Supplier supplier = supplierDataStore.find(filterSup);
+        int catId = Integer.parseInt(req.getParameter("catId"));
+        int supId = Integer.parseInt(req.getParameter("supId"));
 
-
-        if (filterSup != -1 || filterCat != -1) {
-            if (category != null & supplier == null) {
-                products = productDataStore.getBy(category);
-                context.setVariable("category", category);
-
-            } else if (supplier != null & category == null) {
-                products = productDataStore.getBy(supplier);
-                context.setVariable("category", ProductCategoryDaoMem.getInstance().getAll());
-
-            } else if (category != null & supplier != null) {
-                products = productDataStore.getBy(supplier);
-                context.setVariable("category", category);
-                context.setVariable("supplier", supplier);
-            }
-            context.setVariable("products", products);
-
-        } else {
-            resp.sendRedirect("/");
-
+        if (catId != -1 & supId == -1) {
+            ProductCategory category = productCatDataStore.find(catId);
+            products = productDataStore.getBy(category);
+            context.setVariable("category",category);
         }
+
+        if(catId == -1 & supId != -1){
+            Supplier supplier = supplierDataStore.find(supId);
+            products = productDataStore.getBy(supplier);
+            context.setVariable("category",productCatDataStore.getAll());
+        }
+        if(catId != -1 & supId != -1){
+            ProductCategory category = productCatDataStore.find(catId);
+            Supplier supplier = supplierDataStore.find(supId);
+            products = productDataStore.getBy(supplier);
+            context.setVariable("category",category);
+
+        }else {
+
+
+            resp.sendRedirect("/");
+        }
+        context.setVariable("products", products);
         engine.process("product/index.html", context, resp.getWriter());
 
 
     }
-
 }
