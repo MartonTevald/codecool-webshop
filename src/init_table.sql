@@ -18,7 +18,4 @@ CREATE TABLE product(
     description varchar(500),
     price float8,
     supplier_id int  REFERENCES supplier(id),
-    prodCat_id int REFERENCES prodCat(id)
-
-
-                    );
+    prodCat_id int REFERENCES prodCat(id));
