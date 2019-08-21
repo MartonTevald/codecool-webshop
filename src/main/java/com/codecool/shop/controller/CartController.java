@@ -53,8 +53,6 @@ public class CartController extends HttpServlet {
             int productID = Integer.parseInt(addToCart);
             Product prod = productDataStore.find(productID);
             cart.addToCart(prod);
-            HashMap<Product,Integer> c = cart.getCart();
-            System.out.println(c);
             resp.sendRedirect(req.getContextPath() + "/");
         }
 
