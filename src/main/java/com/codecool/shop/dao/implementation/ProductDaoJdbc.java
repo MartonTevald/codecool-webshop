@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductDaoJdbc extends DatabaseConnection implements ProductDao {
+public class    ProductDaoJdbc extends DatabaseConnection implements ProductDao {
 
     private ProductCategoryDaoJdbc prodCatJdbc = new ProductCategoryDaoJdbc();
     private SupplierDaoJdbc suppJdbc = new SupplierDaoJdbc();
