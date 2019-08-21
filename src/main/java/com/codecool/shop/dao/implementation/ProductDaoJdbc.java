@@ -177,10 +177,10 @@ public class    ProductDaoJdbc extends DatabaseConnection implements ProductDao 
 
         List<Product> products = new ArrayList<>();
 
-        int catId = getSupplierId(productCategory.getName());
+        int supId = getProdCatId(productCategory.getName());
         try {
             PreparedStatement stmt = getConnection().prepareStatement("SELECT * FROM product WHERE product.prodcat_id = ?");
-            stmt.setInt(1, catId);
+            stmt.setInt(1, supId);
             ResultSet resultSet = stmt.executeQuery();
             while (resultSet.next()) {
                 Product product;

@@ -35,7 +35,9 @@ public class SupplierDaoJdbc extends DatabaseConnection implements SupplierDao {
             stmt.setInt(1, id);
             ResultSet resultSet = stmt.executeQuery();
             while (resultSet.next()) {
-                result = new Supplier(resultSet.getString("name"),
+                result = new Supplier(
+                        resultSet.getInt("id"),
+                        resultSet.getString("name"),
                         resultSet.getString("description"));
                 return result;
             }
@@ -61,10 +63,13 @@ public class SupplierDaoJdbc extends DatabaseConnection implements SupplierDao {
     public List<Supplier> getAll() {
         List<Supplier> suppliers = new ArrayList<>();
         try {
-            PreparedStatement stmt = getConnection().prepareStatement("SELECT * FROM prodcat");
+            PreparedStatement stmt = getConnection().prepareStatement("SELECT * FROM supplier");
             ResultSet resultSet = stmt.executeQuery();
             while (resultSet.next()) {
-                Supplier supplier = new Supplier(resultSet.getString("name"), resultSet.getString("description"));
+                Supplier supplier = new Supplier(
+                        resultSet.getInt("id"),
+                        resultSet.getString("name"),
+                        resultSet.getString("description"));
                 suppliers.add(supplier);
             }
             return suppliers;

@@ -34,7 +34,11 @@ public class ProductCategoryDaoJdbc extends DatabaseConnection implements Produc
             stmt.setInt(1, id);
             ResultSet resultSet = stmt.executeQuery();
             while (resultSet.next()) {
-                result = new ProductCategory(resultSet.getString("name"), resultSet.getString("department"), resultSet.getString("description"));
+                result = new ProductCategory(
+                        resultSet.getInt("id"),
+                        resultSet.getString("name"),
+                        resultSet.getString("department"),
+                        resultSet.getString("description"));
                 return result;
             }
         } catch (SQLException e) {
@@ -61,7 +65,11 @@ public class ProductCategoryDaoJdbc extends DatabaseConnection implements Produc
             PreparedStatement stmt = getConnection().prepareStatement("SELECT * FROM prodcat");
             ResultSet resultSet = stmt.executeQuery();
             while (resultSet.next()) {
-                ProductCategory productCategory = new ProductCategory(resultSet.getString("name"), resultSet.getString("department"), resultSet.getString("description"));
+                ProductCategory productCategory = new ProductCategory(
+                        resultSet.getInt("id"),
+                        resultSet.getString("name"),
+                        resultSet.getString("department"),
+                        resultSet.getString("description"));
                 prodcatres.add(productCategory);
             }
             return prodcatres;

@@ -24,15 +24,15 @@
 <div class="container">
     <div class="card list-group-item">
         <form action="/" method="post">
-            <select name="filterCat" class="btn btn success">
-                <option th:value="${-1}">Categories</option>
-                <option th:each="categ : ${categoryFilter}" th:text="${categ.name}"
+            <select class="btn btn success" th:name="catId">
+                <option th:value="${-1}"> Categories</option>
+                <option th:each="categ : ${categoryFilter}"  th:text="${categ.name}"
                         th:value="${categ.id}">
                 </option>
             </select>
-            <select name="filterSup" class="btn btn success">
+            <select class="btn btn success" th:name="supId">
                 <option th:value="${-1}">Suppliers</option>
-                <option th:each="sup : ${supplierFilter}" th:text="${sup.name}"
+                <option th:each="sup : ${supplierFilter}"  th:text="${sup.name}"
                         th:value="${sup.id}">
                 </option>
             </select>
