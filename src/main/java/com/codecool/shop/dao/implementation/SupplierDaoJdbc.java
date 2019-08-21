@@ -17,7 +17,7 @@ public class SupplierDaoJdbc extends DatabaseConnection implements SupplierDao {
             PreparedStatement stmt = getConnection().prepareStatement("INSERT INTO supplier (name, description)VALUES (?,?)");
             stmt.setString(1, supplier.getName());
             stmt.setString(2, supplier.getDescription());
-            stmt.executeQuery();
+            stmt.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
