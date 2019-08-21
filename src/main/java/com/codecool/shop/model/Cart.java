@@ -61,12 +61,13 @@ public class Cart {
     }
 
     public void removeFromCart(Product product) {
-        if (cart.containsKey(product)) {
-            Integer actual = cart.get(product);
+        Product prod = checkProduct(product);
+        if (prod != null) {
+            Integer actual = cart.get(prod);
             if (actual > 1) {
-                cart.put(product, cart.get(product) - 1);
+                cart.put(prod, cart.get(prod) - 1);
             } else {
-                cart.remove(product);
+                cart.remove(prod);
             }
         }
     }
