@@ -13,13 +13,13 @@ import java.util.List;
 public class ProductCategoryDaoJdbc extends DatabaseConnection implements ProductCategoryDao {
     @Override
     public void add(ProductCategory category) {
-        try (PreparedStatement stmt = getConnection().prepareStatement(
+        try (PreparedStatement statement = getConnection().prepareStatement(
                 "INSERT INTO prodcat (name, department ,description) " +
                         "VALUES (?,?,?)")) {
-            stmt.setString(1, category.getName());
-            stmt.setString(2, category.getDepartment());
-            stmt.setString(3, category.getDescription());
-            stmt.execute();
+            statement.setString(1, category.getName());
+            statement.setString(2, category.getDepartment());
+            statement.setString(3, category.getDescription());
+            statement.execute();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -30,11 +30,11 @@ public class ProductCategoryDaoJdbc extends DatabaseConnection implements Produc
     @Override
     public ProductCategory find(int id) {
         ProductCategory result;
-        try (PreparedStatement stmt = getConnection().prepareStatement(
+        try (PreparedStatement statement = getConnection().prepareStatement(
                 "SELECT * FROM prodcat " +
                         "WHERE prodcat.id = ?")) {
-            stmt.setInt(1, id);
-            ResultSet resultSet = stmt.executeQuery();
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 result = new ProductCategory(
                         resultSet.getInt("id"),
@@ -52,11 +52,11 @@ public class ProductCategoryDaoJdbc extends DatabaseConnection implements Produc
 
     @Override
     public void remove(int id) {
-        try (PreparedStatement stmt = getConnection().prepareStatement(
+        try (PreparedStatement statement = getConnection().prepareStatement(
                 "DELETE FROM prodcat " +
                         "WHERE prodcat.id = ?")) {
-            stmt.setString(1, String.valueOf(id));
-            stmt.executeQuery();
+            statement.setString(1, String.valueOf(id));
+            statement.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -65,9 +65,9 @@ public class ProductCategoryDaoJdbc extends DatabaseConnection implements Produc
     @Override
     public List<ProductCategory> getAll() {
         List<ProductCategory> prodcatres = new ArrayList<>();
-        try (PreparedStatement stmt = getConnection().prepareStatement(
+        try (PreparedStatement statement = getConnection().prepareStatement(
                 "SELECT * FROM prodcat")) {
-            ResultSet resultSet = stmt.executeQuery();
+            ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 ProductCategory productCategory = new ProductCategory(
                         resultSet.getInt("id"),

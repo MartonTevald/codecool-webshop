@@ -13,12 +13,12 @@ import java.util.List;
 public class SupplierDaoJdbc extends DatabaseConnection implements SupplierDao {
     @Override
     public void add(Supplier supplier) {
-        try (PreparedStatement stmt = DatabaseConnection.getConnection().prepareStatement(
+        try (PreparedStatement statement = DatabaseConnection.getConnection().prepareStatement(
                 "INSERT INTO supplier (name, description)" +
                         "VALUES (?,?)")) {
-            stmt.setString(1, supplier.getName());
-            stmt.setString(2, supplier.getDescription());
-            stmt.executeUpdate();
+            statement.setString(1, supplier.getName());
+            statement.setString(2, supplier.getDescription());
+            statement.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -30,11 +30,11 @@ public class SupplierDaoJdbc extends DatabaseConnection implements SupplierDao {
     public Supplier find(int id) {
 
         Supplier result;
-        try (PreparedStatement stmt = DatabaseConnection.getConnection().prepareStatement(
+        try (PreparedStatement statement = DatabaseConnection.getConnection().prepareStatement(
                 "SELECT * FROM supplier " +
                         "WHERE supplier.id = ?")) {
-            stmt.setInt(1, id);
-            ResultSet resultSet = stmt.executeQuery();
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 result = new Supplier(
                         resultSet.getInt("id"),
@@ -48,14 +48,13 @@ public class SupplierDaoJdbc extends DatabaseConnection implements SupplierDao {
         return null;
     }
 
-
     @Override
     public void remove(int id) {
-        try (PreparedStatement stmt = DatabaseConnection.getConnection().prepareStatement(
+        try (PreparedStatement statement = DatabaseConnection.getConnection().prepareStatement(
                 "DELETE FROM supplier " +
                         "WHERE id = ?")) {
-            stmt.setString(1, String.valueOf(id));
-            stmt.executeQuery();
+            statement.setString(1, String.valueOf(id));
+            statement.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -64,9 +63,9 @@ public class SupplierDaoJdbc extends DatabaseConnection implements SupplierDao {
     @Override
     public List<Supplier> getAll() {
         List<Supplier> suppliers = new ArrayList<>();
-        try (PreparedStatement stmt = DatabaseConnection.getConnection().prepareStatement(
+        try (PreparedStatement statement = DatabaseConnection.getConnection().prepareStatement(
                 "SELECT * FROM supplier")) {
-            ResultSet resultSet = stmt.executeQuery();
+            ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Supplier supplier = new Supplier(
                         resultSet.getInt("id"),

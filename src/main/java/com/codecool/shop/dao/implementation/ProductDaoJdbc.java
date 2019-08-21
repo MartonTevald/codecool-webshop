@@ -20,16 +20,16 @@ public class ProductDaoJdbc extends DatabaseConnection implements ProductDao {
 
     @Override
     public void add(Product product) {
-        try (PreparedStatement stmt = getConnection().prepareStatement(
+        try (PreparedStatement statement = getConnection().prepareStatement(
                 "INSERT INTO product (name, description,price,supplier_id,prodcat_id) " +
                         "VALUES (?,?,?,?,?)")) {
-            stmt.setString(1, product.getName());
-            stmt.setString(2, product.getDescription());
-            stmt.setDouble(3, product.getDefaultPrice());
-            stmt.setInt(4, getSupplierId(product.getSupplier().getName()));
-            stmt.setInt(5, getProdCatId(product.getProductCategory().getName()));
+            statement.setString(1, product.getName());
+            statement.setString(2, product.getDescription());
+            statement.setDouble(3, product.getDefaultPrice());
+            statement.setInt(4, getSupplierId(product.getSupplier().getName()));
+            statement.setInt(5, getProdCatId(product.getProductCategory().getName()));
 
-            stmt.executeUpdate();
+            statement.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -40,11 +40,11 @@ public class ProductDaoJdbc extends DatabaseConnection implements ProductDao {
 
     public int getSupplierId(String name) {
         String result = null;
-        try (PreparedStatement stmt = getConnection().prepareStatement(
+        try (PreparedStatement statement = getConnection().prepareStatement(
                 "SELECT supplier.id FROM supplier " +
                         "WHERE supplier.name = ?")) {
-            stmt.setString(1, name);
-            ResultSet res = stmt.executeQuery();
+            statement.setString(1, name);
+            ResultSet res = statement.executeQuery();
 
             if (res.next())
                 result = res.getString(1);
@@ -60,10 +60,10 @@ public class ProductDaoJdbc extends DatabaseConnection implements ProductDao {
     public int getProdCatId(String name) {
         String result = null;
 
-        try (PreparedStatement stmt = getConnection().prepareStatement(
+        try (PreparedStatement statement = getConnection().prepareStatement(
                 "SELECT prodcat.id FROM prodcat WHERE name = ?")) {
-            stmt.setString(1, name);
-            ResultSet res = stmt.executeQuery();
+            statement.setString(1, name);
+            ResultSet res = statement.executeQuery();
 
             if (res.next())
                 result = res.getString(1);
@@ -79,11 +79,11 @@ public class ProductDaoJdbc extends DatabaseConnection implements ProductDao {
     @Override
     public Product find(int id) {
         Product result;
-        try (PreparedStatement stmt = getConnection().prepareStatement(
+        try (PreparedStatement statement = getConnection().prepareStatement(
                 "SELECT * FROM product " +
                         "WHERE product.id = ?")) {
-            stmt.setInt(1, id);
-            ResultSet resultSet = stmt.executeQuery();
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 result = new Product(
                         resultSet.getInt("id"),
@@ -104,11 +104,11 @@ public class ProductDaoJdbc extends DatabaseConnection implements ProductDao {
 
     @Override
     public void remove(int id) {
-        try (PreparedStatement stmt = getConnection().prepareStatement(
+        try (PreparedStatement statement = getConnection().prepareStatement(
                 "DELETE FROM product " +
                         "WHERE product.id = ?")) {
-            stmt.setString(1, String.valueOf(id));
-            stmt.executeQuery();
+            statement.setString(1, String.valueOf(id));
+            statement.executeQuery();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -120,9 +120,9 @@ public class ProductDaoJdbc extends DatabaseConnection implements ProductDao {
     public List<Product> getAll() {
 
         List<Product> products = new ArrayList<>();
-        try (PreparedStatement stmt = getConnection().prepareStatement(
+        try (PreparedStatement statement = getConnection().prepareStatement(
                 "SELECT * FROM product")) {
-            ResultSet resultSet = stmt.executeQuery();
+            ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Product product;
                 product = new Product(
@@ -152,11 +152,11 @@ public class ProductDaoJdbc extends DatabaseConnection implements ProductDao {
         List<Product> products = new ArrayList<>();
 
         int supplierId = getSupplierId(supplier.getName());
-        try (PreparedStatement stmt = getConnection().prepareStatement(
+        try (PreparedStatement statement = getConnection().prepareStatement(
                 "SELECT * FROM product " +
                         "WHERE product.supplier_id = ?")) {
-            stmt.setInt(1, supplierId);
-            ResultSet resultSet = stmt.executeQuery();
+            statement.setInt(1, supplierId);
+            ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Product product;
                 product = new Product(
@@ -184,11 +184,11 @@ public class ProductDaoJdbc extends DatabaseConnection implements ProductDao {
         List<Product> products = new ArrayList<>();
 
         int supId = getProdCatId(productCategory.getName());
-        try (PreparedStatement stmt = getConnection().prepareStatement(
+        try (PreparedStatement statement = getConnection().prepareStatement(
                 "SELECT * FROM product " +
                         "WHERE product.prodcat_id = ?")) {
-            stmt.setInt(1, supId);
-            ResultSet resultSet = stmt.executeQuery();
+            statement.setInt(1, supId);
+            ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Product product;
                 product = new Product(
