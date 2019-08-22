@@ -4,8 +4,9 @@ import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.model.ProductCategory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+import org.postgresql.util.PSQLException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ProductCategoryDaoJdbcTest {
 
@@ -33,6 +34,14 @@ class ProductCategoryDaoJdbcTest {
     }
 
     @Test
+    void addMore() {
+        prodCatDatabase.add(cat1);
+        prodCatDatabase.add(cat2);
+        assertEquals(2, prodCatDatabase.getAll().size());
+    }
+
+
+    @Test
     void find() {
         prodCatDatabase.add(cat1);
         assertEquals(cat1.getName(), prodCatDatabase.find(1).getName());
@@ -44,6 +53,15 @@ class ProductCategoryDaoJdbcTest {
         prodCatDatabase.add(cat2);
         prodCatDatabase.remove(1);
         assertEquals(1, prodCatDatabase.getAll().size());
+    }
+
+    @Test
+    void removeAllCategory() {
+        prodCatDatabase.add(cat1);
+        prodCatDatabase.add(cat2);
+        prodCatDatabase.remove(1);
+        prodCatDatabase.remove(2);
+        assertEquals(0, prodCatDatabase.getAll().size());
     }
 
     @Test
