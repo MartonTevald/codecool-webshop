@@ -17,7 +17,7 @@ public class Initializer implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-
+/*
         ProductDao productDataStore = new ProductDaoJdbc();
         ProductCategoryDao productCategoryDataStore = new ProductCategoryDaoJdbc();
         SupplierDao supplierDataStore = new SupplierDaoJdbc();
@@ -52,7 +52,7 @@ public class Initializer implements ServletContextListener {
                 " highlighting, or drawing directly on screen. Take delight in seeing your visuals, presentations, and movies come to life on the vibrant 13.3\" display. And then relax knowing the Yoga 370 has an all-day battery life and comes with a worldwide warranty.", laptop, lenovo));
         productDataStore.add(new Product(6,"Apple iPad Pro (12.9-inch, Wi-Fi, 256GB) ", 989, "USD", "Immensely powerful, portable, and capable, the 12.9-inch iPad Pro features a redesigned Retina display that is the most advanced on the planet.", tablet, apple));
         productDataStore.add(new Product(7,"Java 50", 9999, "USD", "The ultimate tool if it comes to change geoposition and you are a developer.", accessories, java));
-
+*/
     }
 
 }

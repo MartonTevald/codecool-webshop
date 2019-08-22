@@ -14,10 +14,10 @@ import java.util.List;
 public class SupplierDaoJdbc extends DatabaseConnection implements SupplierDao {
     @Override
     public void add(Supplier supplier) {
-        String query = "INSERT INTO supplier (name, description)" +
+        String query = "INSERT INTO supplier(name, description)" +
                 "VALUES (?,?)";
         try (Connection connection = DatabaseConnection.getConnection();
-                PreparedStatement statement = connection.prepareStatement(query)) {
+             PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, supplier.getName());
             statement.setString(2, supplier.getDescription());
             statement.executeUpdate();
@@ -34,7 +34,7 @@ public class SupplierDaoJdbc extends DatabaseConnection implements SupplierDao {
         String query = "SELECT * FROM supplier " +
                 "WHERE supplier.id = ?";
         try (Connection connection = DatabaseConnection.getConnection();
-                PreparedStatement statement = connection.prepareStatement(query)) {
+             PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -55,9 +55,9 @@ public class SupplierDaoJdbc extends DatabaseConnection implements SupplierDao {
         String query = "DELETE FROM supplier " +
                 "WHERE id = ?";
         try (Connection connection = DatabaseConnection.getConnection();
-                PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, String.valueOf(id));
-            statement.executeQuery();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, id);
+            statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -68,7 +68,7 @@ public class SupplierDaoJdbc extends DatabaseConnection implements SupplierDao {
         List<Supplier> suppliers = new ArrayList<>();
         String query = "SELECT * FROM supplier";
         try (Connection connection = DatabaseConnection.getConnection();
-                PreparedStatement statement = connection.prepareStatement(query)) {
+             PreparedStatement statement = connection.prepareStatement(query)) {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Supplier supplier = new Supplier(
