@@ -1,20 +1,13 @@
 package com.codecool.shop.dao.implementation;
 
-import com.codecool.shop.dao.DatabaseConnection;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.model.ProductCategory;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class ProductCategoryDaoJdbcTest  {
+class ProductCategoryDaoJdbcTest {
 
     ProductCategory cat1 = new ProductCategory(1, "Tablet", "Hardware", "very nice");
     ProductCategory cat2 = new ProductCategory(2, "Laptop", "Hardware", "very nice");
@@ -23,7 +16,7 @@ class ProductCategoryDaoJdbcTest  {
 
 
     @AfterEach
-        void setup() {
+    void setup() {
         testUtil.removeAll(testUtil.product);
         testUtil.removeAll(testUtil.prodcat);
         testUtil.removeAll(testUtil.supplier);
