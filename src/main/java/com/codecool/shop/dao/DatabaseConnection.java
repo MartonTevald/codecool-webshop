@@ -9,7 +9,7 @@ public class DatabaseConnection {
     private static final String DATABASE = System.getenv("DATABASE");
     private static final String DB_USER = System.getenv("DB_USER");
     private static final String DB_PASSWORD = System.getenv("DB_PASSWORD");
-    private static final  String DB_URL = "jdbc:postgresql://localhost:5432/" + DATABASE;
+    private static final String DB_URL = "jdbc:postgresql://localhost:5432/" + DATABASE;
 
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(
