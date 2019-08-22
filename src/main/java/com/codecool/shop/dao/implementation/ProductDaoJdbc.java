@@ -111,8 +111,8 @@ public class ProductDaoJdbc extends DatabaseConnection implements ProductDao {
                 "WHERE product.id = ?";
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, String.valueOf(id));
-            statement.executeQuery();
+            statement.setInt(1, id);
+            statement.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();

@@ -2,6 +2,7 @@ package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.dao.DatabaseConnection;
 import com.codecool.shop.dao.ProductCategoryDao;
+import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 
 import java.sql.Connection;
@@ -14,13 +15,14 @@ import java.util.List;
 public class ProductCategoryDaoJdbc extends DatabaseConnection implements ProductCategoryDao {
     @Override
     public void add(ProductCategory category) {
-        String query = "INSERT INTO prodcat (name, department ,description)" +
-                "VALUES (?,?,?)";
+        String query = "INSERT INTO prodcat (id,name, department ,description)" +
+                "VALUES (?,?,?,?)";
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, category.getName());
-            statement.setString(2, category.getDepartment());
-            statement.setString(3, category.getDescription());
+            statement.setInt(1, category.getId());
+            statement.setString(2, category.getName());
+            statement.setString(3, category.getDepartment());
+            statement.setString(4, category.getDescription());
             statement.execute();
 
         } catch (SQLException e) {
@@ -52,14 +54,15 @@ public class ProductCategoryDaoJdbc extends DatabaseConnection implements Produc
         return null;
     }
 
+
     @Override
     public void remove(int id) {
         String query = "DELETE FROM prodcat " +
                 "WHERE prodcat.id = ?";
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, String.valueOf(id));
-            statement.executeQuery();
+            statement.setInt(1, id);
+            statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
