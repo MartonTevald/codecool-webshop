@@ -39,8 +39,8 @@ public class ProductCategoryDaoMem extends DatabaseConnection implements Product
 
     @Override
     public void add(ProductCategory category) {
-//        category.setId(data.size() + 1);
-//        data.add(category);
+        category.setId(data.size() + 1);
+        data.add(category);
     }
 
     @Override
