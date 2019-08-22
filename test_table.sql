@@ -7,7 +7,7 @@ CREATE TABLE supplier(
     description varchar(200));
 
 CREATE TABLE prodCat(
-    id SERIAL PRIMARY KEY ,
+    id int UNIQUE ,
     name VARCHAR(50) UNIQUE ,
     department varchar(50),
     description varchar(500));
@@ -20,10 +20,7 @@ CREATE TABLE product(
     supplier_id int  REFERENCES supplier(id),
     prodCat_id int REFERENCES prodCat(id));
 
--- CREATE TABLE user_information(
---     id SERIAL PRIMARY KEY
--- );
---
+
 -- CREATE TABLE invoice(
 --     id SERIAL PRIMARY KEY,
 --     order_id int REFERENCES order(id)
@@ -38,4 +35,3 @@ CREATE TABLE product(
 --     closed boolean
 --
 -- );
-
