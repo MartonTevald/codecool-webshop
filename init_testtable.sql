@@ -7,7 +7,7 @@ CREATE TABLE supplier(
     description varchar(200));
 
 CREATE TABLE prodCat(
-    id int UNIQUE ,
+    id SERIAL PRIMARY KEY ,
     name VARCHAR(50) UNIQUE ,
     department varchar(50),
     description varchar(500));

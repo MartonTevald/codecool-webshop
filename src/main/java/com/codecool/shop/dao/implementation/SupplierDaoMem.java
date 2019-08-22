@@ -2,6 +2,7 @@ package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.dao.DatabaseConnection;
 import com.codecool.shop.dao.SupplierDao;
+import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 
 import java.sql.PreparedStatement;
@@ -29,11 +30,12 @@ public class SupplierDaoMem extends DatabaseConnection implements SupplierDao {
 
     @Override
     public void add(Supplier supplier) {
-//        supplier.setId(data.size() + 1);
-//        data.add(supplier);
+        supplier.setId(data.size() + 1);
+        data.add(supplier);
     }
 
-//    public Supplier find(String name) {
+//    @Override
+//    public Supplier findName(String name) {
 //        for (Supplier sup : data) {
 //            if (name.equals(sup.getName())) {
 //                return sup;
