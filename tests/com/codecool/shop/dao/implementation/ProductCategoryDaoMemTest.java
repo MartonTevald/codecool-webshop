@@ -7,11 +7,11 @@ import static org.junit.jupiter.api.Assertions.*;
 class ProductCategoryDaoMemTest {
 
     @Test
-    void find() {
+    void add() {
     }
 
     @Test
-    void add() {
+    void find() {
     }
 
     @Test
