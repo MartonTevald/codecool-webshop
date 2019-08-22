@@ -16,14 +16,13 @@ public class ProductCategoryDaoJdbc extends DatabaseConnection implements Produc
     public void add(ProductCategory category) {
         String query = "INSERT INTO prodcat (name, department ,description)" +
                 "VALUES (?,?,?)";
-        try (Connection connection = DatabaseConnection.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement(query)) {
+        try (Connection connection = DatabaseConnection.getConnection();
+            PreparedStatement statement = connection.prepareStatement(query)) {
                 statement.setString(1, category.getName());
                 statement.setString(2, category.getDepartment());
                 statement.setString(3, category.getDescription());
                 statement.execute();
 
-            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
