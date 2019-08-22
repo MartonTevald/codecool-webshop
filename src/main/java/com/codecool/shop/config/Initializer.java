@@ -17,28 +17,28 @@ public class Initializer implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        /*
+
         ProductDao productDataStore = new ProductDaoJdbc();
         ProductCategoryDao productCategoryDataStore = new ProductCategoryDaoJdbc();
         SupplierDao supplierDataStore = new SupplierDaoJdbc();
 
         //setting up a new supplier
-        Supplier amazon = new Supplier("Amazon", "Digital content and services");
+        Supplier amazon = new Supplier(1,"Amazon", "Digital content and services");
         supplierDataStore.add(amazon);
-        Supplier lenovo = new Supplier("Lenovo", "Computers");
+        Supplier lenovo = new Supplier(2,"Lenovo", "Computers");
         supplierDataStore.add(lenovo);
-        Supplier apple = new Supplier("Apple", "Computers and Digital content");
+        Supplier apple = new Supplier(3,"Apple", "Computers and Digital content");
         supplierDataStore.add(apple);
-        Supplier java = new Supplier("Mustang", "accessories");
+        Supplier java = new Supplier(4,"Mustang", "accessories");
         supplierDataStore.add(java);
 
 
-        ProductCategory tablet = new ProductCategory("Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
+        ProductCategory tablet = new ProductCategory(1,"Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
         productCategoryDataStore.add(tablet);
-        ProductCategory laptop = new ProductCategory("Laptop", "Hardware", "A laptop computer, sometimes called a notebook computer by manufacturers, is a battery- or AC-powered personal computer generally smaller than a briefcase that can easily" +
+        ProductCategory laptop = new ProductCategory(2,"Laptop", "Hardware", "A laptop computer, sometimes called a notebook computer by manufacturers, is a battery- or AC-powered personal computer generally smaller than a briefcase that can easily" +
                 " be transported and conveniently used in temporary spaces such as on airplanes, in libraries, temporary offices, and at meetings.");
                 productCategoryDataStore.add(laptop);
-        ProductCategory accessories = new ProductCategory("Accessories", "Hardware", "Other products, accessories.");
+        ProductCategory accessories = new ProductCategory(3,"Accessories", "Hardware", "Other products, accessories.");
         productCategoryDataStore.add(accessories);
 
         //setting up products and printing it
@@ -52,7 +52,7 @@ public class Initializer implements ServletContextListener {
                 " highlighting, or drawing directly on screen. Take delight in seeing your visuals, presentations, and movies come to life on the vibrant 13.3\" display. And then relax knowing the Yoga 370 has an all-day battery life and comes with a worldwide warranty.", laptop, lenovo));
         productDataStore.add(new Product(6,"Apple iPad Pro (12.9-inch, Wi-Fi, 256GB) ", 989, "USD", "Immensely powerful, portable, and capable, the 12.9-inch iPad Pro features a redesigned Retina display that is the most advanced on the planet.", tablet, apple));
         productDataStore.add(new Product(7,"Java 50", 9999, "USD", "The ultimate tool if it comes to change geoposition and you are a developer.", accessories, java));
-    */
+
     }
 
 }
