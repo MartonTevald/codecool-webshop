@@ -36,23 +36,23 @@ CREATE TABLE user_information
 );
 
 
-CREATE TABLE "Order"
-(
-    id            SERIAL PRIMARY KEY,
-    date          timestamp,
-    orderSubtotal DECIMAL,
-    user_id       Int REFERENCES user_information (id),
-    payed         BOOLEAN
-);
-
-CREATE TABLE OrderItem
-(
-    ItemID       SERIAL PRIMARY KEY,
-    OrderID      Int REFERENCES postgres.public."Order" (id),
-    ProductID    Int,
-    ProductPrice Decimal,
-    Qty          Int
-);
+-- CREATE TABLE "Order"
+-- (
+--     id            SERIAL PRIMARY KEY,
+--     date          timestamp,
+--     orderSubtotal DECIMAL,
+--     user_id       Int REFERENCES user_information (id),
+--     payed         BOOLEAN
+-- );
+--
+-- CREATE TABLE OrderItem
+-- (
+--     ItemID       SERIAL PRIMARY KEY,
+--     OrderID      Int REFERENCES postgres.public."Order" (id),
+--     ProductID    Int,
+--     ProductPrice Decimal,
+--     Qty          Int
+-- );
 
 INSERT INTO supplier (name, description)
 VALUES ('Amazon', 'Digital content and services');

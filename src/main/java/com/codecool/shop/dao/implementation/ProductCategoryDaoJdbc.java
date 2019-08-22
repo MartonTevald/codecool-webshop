@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductCategoryDaoJdbc extends DatabaseConnection implements ProductCategoryDao {
+
     @Override
     public void add(ProductCategory category) {
         try {
