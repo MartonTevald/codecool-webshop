@@ -16,21 +16,12 @@ import static org.junit.jupiter.api.Assertions.*;
 class ProductDaoJdbcTest extends DatabaseConnection {
 
     TestUtil testUtil = new TestUtil();
-    private ProductDao prodtest;
-    private SupplierDao suppli;
-    private ProductCategoryDao prodCat;
+    private ProductDao prodtest = new ProductDaoJdbc();
+    private SupplierDao suppli = new SupplierDaoJdbc();
+    private ProductCategoryDao prodCat = new ProductCategoryDaoJdbc();
 
     @BeforeEach
     void setup(){
-        testUtil.removeAll(testUtil.product);
-        testUtil.removeAll(testUtil.prodcat);
-        testUtil.removeAll(testUtil.supplier);
-        testUtil.create(testUtil.queryCategory);
-        testUtil.create(testUtil.querySupplier);
-        testUtil.create(testUtil.queryProduct);
-        prodtest = new ProductDaoJdbc();
-        suppli = new SupplierDaoJdbc();
-        prodCat = new ProductCategoryDaoJdbc();
         suppli.add(sup1);
         suppli.add(sup2);
         prodCat.add(cat1);
@@ -39,7 +30,12 @@ class ProductDaoJdbcTest extends DatabaseConnection {
 
     @AfterEach
     void clearDb(){
-        //removeAll();
+        testUtil.removeAll(testUtil.product);
+        testUtil.removeAll(testUtil.prodcat);
+        testUtil.removeAll(testUtil.supplier);
+        testUtil.create(testUtil.queryCategory);
+        testUtil.create(testUtil.querySupplier);
+        testUtil.create(testUtil.queryProduct);
     }
 
 
@@ -54,34 +50,59 @@ class ProductDaoJdbcTest extends DatabaseConnection {
     @Test
     void testAddSingleProductJDBC() {
         prodtest.add(prod1);
-        assertSame(prodtest.find(1),prod1);
+        assertEquals(prodtest.find(1).getName(),prod1.getName());
+    }
+
+//    @Test
+//    void getSupplierId() {
+//        prodtest.add(prod1);
+//
+//    }
+//
+//    @Test
+//    void getProdCatId() {
+//        prodtest.add(prod1);
+//
+//    }
+
+    @Test
+    void testFindSingleProduct() {
+        prodtest.add(prod1);
+        prodtest.add(prod2);
+        assertEquals(prodtest.find(2).getName(),prod2.getName());
+
     }
 
     @Test
-    void getSupplierId() {
+    void testRemoveSingleProduct() {
+        prodtest.add(prod1);
+        prodtest.add(prod2);
+        prodtest.remove(1);
+        assertEquals(1, prodtest.getAll().size());
+
     }
 
     @Test
-    void getProdCatId() {
+    void testGetAllProducts() {
+        prodtest.add(prod1);
+        prodtest.add(prod2);
+        assertEquals(2, prodtest.getAll().size());
+
     }
 
     @Test
-    void find() {
+    void testGetBySupplier() {
+        prodtest.add(prod1);
+        prodtest.add(prod2);
+        assertEquals(1, prodtest.getBy(sup1).size());
+
     }
 
     @Test
-    void remove() {
-    }
+    void testGetByProductCategory() {
+        prodtest.add(prod1);
+        prodtest.add(prod2);
+        assertEquals(1, prodtest.getBy(cat2).size());
 
-    @Test
-    void getAll() {
-    }
-
-    @Test
-    void getBy() {
-    }
-
-    @Test
-    void getBy1() {
     }
 }
