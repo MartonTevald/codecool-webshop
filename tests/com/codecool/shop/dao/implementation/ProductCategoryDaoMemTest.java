@@ -1,6 +1,8 @@
 package com.codecool.shop.dao.implementation;
 
+import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.model.ProductCategory;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -10,7 +12,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ProductCategoryDaoMemTest {
 
-    private ProductCategoryDaoMem prodCat = ProductCategoryDaoMem.getInstance();
+    ProductCategoryDaoMem prodCat;
+
+    @BeforeEach
+    void setup() {
+    prodCat = ProductCategoryDaoMem.getInstance();
+    prodCat.getAll().clear();
+}
 
     ProductCategory cat1 = new ProductCategory(1,"Tablet","Hardware","very nice");
     ProductCategory cat2 = new ProductCategory(2,"Laptop","Hardware","very nice");
