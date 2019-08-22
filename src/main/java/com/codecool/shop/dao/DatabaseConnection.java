@@ -5,12 +5,13 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public abstract class DatabaseConnection {
+public class DatabaseConnection {
     private static final String DATABASE = System.getenv("DATABASE");
     private static final String DB_USER = System.getenv("DB_USER");
     private static final String DB_PASSWORD = System.getenv("DB_PASSWORD");
+    private static final String DB_URL = "jdbc:postgresql://localhost:5432/" + DATABASE;
 
-    protected Connection getConnection() throws SQLException {
+    public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(
                 DATABASE,
                 DB_USER,
@@ -18,8 +19,7 @@ public abstract class DatabaseConnection {
 
     }
 
-
-    void executeQuery(String query) {
+    public static void executeQuery(String query) {
         try (Connection connection = getConnection();
              Statement statement = connection.createStatement();
         ) {
