@@ -14,21 +14,23 @@ import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ProductCategoryDaoJdbcTest extends DatabaseConnection {
+class ProductCategoryDaoJdbcTest  {
 
-    @AfterEach
-    void removeAll() {
-        String query = "DELETE  FROM prodcat ";
-        try (Connection connection = DatabaseConnection.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    ProductCategoryDao prodCatDatabase = new ProductCategoryDaoJdbc();
     ProductCategory cat1 = new ProductCategory(1, "Tablet", "Hardware", "very nice");
     ProductCategory cat2 = new ProductCategory(2, "Laptop", "Hardware", "very nice");
+    TestUtil testUtil = new TestUtil();
+    ProductCategoryDao prodCatDatabase = new ProductCategoryDaoJdbc();
+
+
+    @AfterEach
+        void setup() {
+        testUtil.removeAll(testUtil.product);
+        testUtil.removeAll(testUtil.prodcat);
+        testUtil.removeAll(testUtil.supplier);
+        testUtil.create(testUtil.queryCategory);
+        testUtil.create(testUtil.querySupplier);
+        testUtil.create(testUtil.queryProduct);
+    }
 
     @Test
     void add() {
