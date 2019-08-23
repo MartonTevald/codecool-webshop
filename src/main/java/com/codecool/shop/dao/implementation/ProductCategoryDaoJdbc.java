@@ -2,8 +2,10 @@ package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.dao.DatabaseConnection;
 import com.codecool.shop.dao.ProductCategoryDao;
+import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,12 +16,15 @@ public class ProductCategoryDaoJdbc extends DatabaseConnection implements Produc
 
     @Override
     public void add(ProductCategory category) {
-        try {
-            PreparedStatement stmt = getConnection().prepareStatement("INSERT INTO prodcat (name, department ,description) VALUES (?,?,?)");
-            stmt.setString(1, category.getName());
-            stmt.setString(2, category.getDepartment());
-            stmt.setString(3, category.getDescription());
-            stmt.executeUpdate();
+        String query = "INSERT INTO prodcat (id,name, department ,description)" +
+                "VALUES (?,?,?,?)";
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, category.getId());
+            statement.setString(2, category.getName());
+            statement.setString(3, category.getDepartment());
+            statement.setString(4, category.getDescription());
+            statement.execute();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -30,10 +35,12 @@ public class ProductCategoryDaoJdbc extends DatabaseConnection implements Produc
     @Override
     public ProductCategory find(int id) {
         ProductCategory result;
-        try {
-            PreparedStatement stmt = getConnection().prepareStatement("SELECT * FROM prodcat WHERE prodcat.id = ?");
-            stmt.setInt(1, id);
-            ResultSet resultSet = stmt.executeQuery();
+        String query = "SELECT * FROM prodcat " +
+                "WHERE prodcat.id = ?";
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 result = new ProductCategory(
                         resultSet.getInt("id"),
@@ -48,12 +55,15 @@ public class ProductCategoryDaoJdbc extends DatabaseConnection implements Produc
         return null;
     }
 
+
     @Override
     public void remove(int id) {
-        try {
-            PreparedStatement stmt = getConnection().prepareStatement("DELETE FROM prodcat WHERE prodcat.id = ?");
-            stmt.setString(1, String.valueOf(id));
-            stmt.executeQuery();
+        String query = "DELETE FROM prodcat " +
+                "WHERE prodcat.id = ?";
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, id);
+            statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -62,9 +72,10 @@ public class ProductCategoryDaoJdbc extends DatabaseConnection implements Produc
     @Override
     public List<ProductCategory> getAll() {
         List<ProductCategory> prodcatres = new ArrayList<>();
-        try {
-            PreparedStatement stmt = getConnection().prepareStatement("SELECT * FROM prodcat");
-            ResultSet resultSet = stmt.executeQuery();
+        String query = "SELECT * FROM prodcat";
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 ProductCategory productCategory = new ProductCategory(
                         resultSet.getInt("id"),

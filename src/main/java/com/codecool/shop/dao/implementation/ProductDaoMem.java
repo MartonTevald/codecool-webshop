@@ -30,9 +30,8 @@ public class ProductDaoMem extends DatabaseConnection implements ProductDao {
 
     @Override
     public void add(Product product) {
-//
-//        product.setId(data.size() + 1);
-//        data.add(product);
+        product.setId(data.size() + 1);
+        data.add(product);
     }
 
     @Override

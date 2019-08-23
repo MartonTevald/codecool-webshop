@@ -5,7 +5,6 @@ import com.codecool.shop.dao.implementation.RegisterJdbc;
 import com.codecool.shop.model.User;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
-import sun.jvm.hotspot.asm.Register;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -36,10 +35,16 @@ public class RegisterController extends HttpServlet {
         String password = req.getParameter("password");
         String username = req.getParameter("username");
         String fullname = fname + " " + lname;
+        String check = req.getParameter("register");
+        if(check.equals("true")) {
+            RegisterJdbc regJdbc = new RegisterJdbc();
+            User user = new User(fullname, username, email, password);
+            regJdbc.addUser(user);
+            resp.sendRedirect("/");
 
-        RegisterJdbc regJdbc = new RegisterJdbc();
-        User user = new User(fullname,username,email,password);
-        regJdbc.addUser(user);
+        }else {
+            resp.sendRedirect("/reg");
+        }
 
 
 

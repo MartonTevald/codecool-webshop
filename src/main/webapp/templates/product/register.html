@@ -37,17 +37,17 @@
                     <label for="password"><i class="fa fa-user"></i> Password</label>
                     <input type="password" id="password" name="password" placeholder="a@2b!dT" required
                            minlength="1"><br>
-                    <label for="repeat_password"><i class="fa fa-user"></i> Repeat password</label>
-                    <input type="password" id="repeat_password" name="repeat_password" placeholder="a@2b!dT" required
+                    <label for="confirm_password"><i class="fa fa-user"></i> Confirm password</label>
+                    <input type="password" id="confirm_password" name="confirm_password" placeholder="a@2b!dT" required
                            minlength="1"><br>
 
-                    <input class="btn btn-success" type="submit" value="register" >
+                    <input class="btn btn-success" type="submit" value="register" id="register" name="register">
                 </form>
             </div>
             <br>
-                <button class="btn btn-success" type="submit" href="/">Back</button>
-</div>
-<div th:replace="footer.html :: copy"></div>
+            <button class="btn btn-success" type="submit" href="/">Back</button>
+        </div>
+        <div th:replace="footer.html :: copy"></div>
 
 </body>
 </html>
