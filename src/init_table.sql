@@ -28,11 +28,11 @@ CREATE TABLE product
 
 CREATE TABLE user_details
 (
-    id               SERIAL PRIMARY KEY NOT NULL,
-    fullname         varchar            NOT NULL,
-    username         varchar            NOT NULL,
-    email            varchar            NOT NULL,
-    password         varchar            NOT NULL,
+    id               SERIAL PRIMARY KEY,
+    fullname         varchar,
+    username         varchar,
+    email            varchar,
+    password         varchar,
     phonenumber      varchar,
     address          varchar,
     city             varchar,
