@@ -26,6 +26,39 @@ CREATE TABLE product
     prodCat_id  int REFERENCES prodCat (id)
 );
 
+CREATE TABLE user_details
+(
+  id SERIAL PRIMARY KEY,
+  fullname varchar,
+  username varchar,
+  email varchar,
+  password varchar,
+  phonenumber varchar,
+  address varchar,
+  city varchar,
+  state varchar,
+  zip varchar,
+  shipping_address varchar,
+  shipping_city varchar,
+  shipping_state varchar,
+  shipping_zip varchar
+);
+
+CREATE TABLE "order"
+(
+  id serial PRIMARY KEY ,
+  user_id int REFERENCES user_details(id),
+  status varchar
+);
+
+CREATE TABLE order_details
+(
+  id SERIAL PRIMARY KEY ,
+  prod_id INT REFERENCES product(id),
+  quantity INT,
+  order_id INT REFERENCES "order"(id)
+);
+
 INSERT INTO supplier(name, department, description)
 VALUES ('Amazon', 'Digital content and services', 'Amazon.com Inc.');
 
@@ -88,24 +121,3 @@ VALUES ('Apple iPad Pro (12.9-inch, Wi-Fi, 256GB) ',
 
 INSERT INTO product(name, description, price, supplier_id, prodCat_id)
 VALUES ('Java 50', 'The ultimate tool if it comes to change geoposition and you are a developer.', '9999', 4, 3);
-
-
--- CREATE TABLE user_information(
---     id SERIAL PRIMARY KEY
--- );
---
--- CREATE TABLE invoice(
---     id SERIAL PRIMARY KEY,
---     order_id int REFERENCES order(id)
--- );
---
--- CREATE TABLE order(
---     id SERIAL PRIMARY KEY ,
---     product_id int REFERENCES product(id),
---     count int,
---     user_id int REFERENCES user_information(id),
---     ord_number int,
---     closed boolean
---
--- );
-
