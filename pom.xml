@@ -10,9 +10,10 @@
     <packaging>war</packaging>
 
     <properties>
-      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-      <jetty.version>9.4.12.v20180830</jetty.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <jetty.version>9.4.12.v20180830</jetty.version>
     </properties>
+
 
     <build>
         <finalName>codecoolshop</finalName>
@@ -40,7 +41,7 @@
                 <configuration>
                     <!-- On some configs this causes shutdown of context on -->
                     <!-- a page load so disabled. -->
-<!--                     <reload>automatic</reload>-->
+                    <!--                     <reload>automatic</reload>-->
                     <!-- <scanIntervalSeconds>1</scanIntervalSeconds> -->
                 </configuration>
             </plugin>
@@ -48,6 +49,16 @@
     </build>
 
     <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.13</version>
+        </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
