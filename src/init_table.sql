@@ -28,35 +28,35 @@ CREATE TABLE product
 
 CREATE TABLE user_details
 (
-  id SERIAL PRIMARY KEY,
-  fullname varchar,
-  username varchar,
-  email varchar,
-  password varchar,
-  phonenumber varchar,
-  address varchar,
-  city varchar,
-  state varchar,
-  zip varchar,
-  shipping_address varchar,
-  shipping_city varchar,
-  shipping_state varchar,
-  shipping_zip varchar
+    id               SERIAL PRIMARY KEY,
+    fullname         varchar,
+    username         varchar,
+    email            varchar,
+    password         varchar,
+    phonenumber      varchar,
+    address          varchar,
+    city             varchar,
+    state            varchar,
+    zip              varchar,
+    shipping_address varchar,
+    shipping_city    varchar,
+    shipping_state   varchar,
+    shipping_zip     varchar
 );
 
 CREATE TABLE "order"
 (
-  id serial PRIMARY KEY ,
-  user_id int REFERENCES user_details(id),
-  status varchar
+    id      serial PRIMARY KEY,
+    user_id int REFERENCES user_details (id),
+    status  varchar
 );
 
 CREATE TABLE order_details
 (
-  id SERIAL PRIMARY KEY ,
-  prod_id INT REFERENCES product(id),
-  quantity INT,
-  order_id INT REFERENCES "order"(id)
+    id       SERIAL PRIMARY KEY,
+    prod_id  INT REFERENCES product (id),
+    quantity INT,
+    order_id INT REFERENCES "order" (id)
 );
 
 INSERT INTO supplier(name, department, description)
