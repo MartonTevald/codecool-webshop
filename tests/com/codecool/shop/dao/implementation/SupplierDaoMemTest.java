@@ -10,9 +10,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class SupplierDaoMemTest {
 
     private SupplierDaoMem test;
+    TestUtil testUtil = new TestUtil();
 
     @BeforeEach
     void setup() {
+        testUtil.setupDatabase();
+
         test = SupplierDaoMem.getInstance();
         test.getAll().clear();
     }
