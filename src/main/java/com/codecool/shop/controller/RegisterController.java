@@ -1,6 +1,7 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
+import com.codecool.shop.dao.PasswordUtils;
 import com.codecool.shop.dao.implementation.RegisterJdbc;
 import com.codecool.shop.model.User;
 import org.thymeleaf.TemplateEngine;
@@ -37,8 +38,12 @@ public class RegisterController extends HttpServlet {
         String fullname = fname + " " + lname;
         String check = req.getParameter("register");
         if(check.equals("true")) {
+
+            String salt = PasswordUtils.getSalt(30);
+            String mySecurePassword = PasswordUtils.generateSecurePassword(password, salt);
+
             RegisterJdbc regJdbc = new RegisterJdbc();
-            User user = new User(fullname, username, email, password);
+            User user = new User(fullname, username, email, mySecurePassword);
             regJdbc.addUser(user);
             resp.sendRedirect("/");
 
