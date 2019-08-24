@@ -41,8 +41,8 @@
                 </option>
             </select>
             <button class="btn btn-success" type="submit">Filter</button>
-            <a class="btn btn-success" href="/cart">Shopping cart</a>
-            <a class="btn btn-success" href="/checkout">Checkout</a>
+            <a th:if="${user != '-1'} " class="btn btn-success" href="/cart">Shopping cart</a>
+            <a th:if="${user != '-1'} " class="btn btn-success" href="/checkout">Checkout</a>
 
         </form>
     </div>

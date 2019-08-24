@@ -54,10 +54,13 @@ public class ProductController extends HttpServlet {
         ProductDao productDataStore = new ProductDaoJdbc();
         SupplierDao supplierDataStore = new SupplierDaoJdbc();
         ProductCategoryDao productCatDataStore = new ProductCategoryDaoJdbc();
+        SessionUtil sessionUtil = new SessionUtil();
         List<Product> products = null;
+        String value = sessionUtil.readFromSession(req, "userID");
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
+        context.setVariable("user", value);
         context.setVariable("categoryFilter", productCatDataStore.getAll());
         context.setVariable("supplierFilter", supplierDataStore.getAll());
 
