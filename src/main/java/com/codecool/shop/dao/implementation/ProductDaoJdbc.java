@@ -107,11 +107,11 @@ public class ProductDaoJdbc extends DatabaseConnection implements ProductDao {
 
     @Override
     public List<Product> findBySearch(String search) {
-        String query = "SELECT * FROM product WHERE product.name = ?";
+        String query = "SELECT * FROM product WHERE product.name ILIKE ?";
         List<Product> products = new ArrayList<>();
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, search);
+            statement.setString(1, "%" + search + "%");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Product product;
