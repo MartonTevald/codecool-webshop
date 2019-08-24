@@ -106,6 +106,35 @@ public class ProductDaoJdbc extends DatabaseConnection implements ProductDao {
     }
 
     @Override
+    public List<Product> findBySearch(String search) {
+        String query = "SELECT * FROM product WHERE product.name = ?";
+        List<Product> products = new ArrayList<>();
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, search);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Product product;
+                product = new Product(
+                        resultSet.getInt("id"),
+                        resultSet.getString("name"),
+                        resultSet.getFloat("price"),
+                        "USD",
+                        resultSet.getString("description"),
+                        prodCatJdbc.find(resultSet.getInt("prodcat_id")),
+                        suppJdbc.find(resultSet.getInt("supplier_id")));
+
+                products.add(product);
+            }
+            return products;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    @Override
     public void remove(int id) {
         String query = "DELETE FROM product " +
                 "WHERE product.id = ?";

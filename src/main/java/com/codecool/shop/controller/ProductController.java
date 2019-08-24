@@ -55,6 +55,12 @@ public class ProductController extends HttpServlet {
 
         int catId = Integer.parseInt(req.getParameter("catId"));
         int supId = Integer.parseInt(req.getParameter("supId"));
+        String search = req.getParameter("search");
+
+        if (search != null) {
+            products = productDataStore.findBySearch(search);
+            context.setVariable("search", search);
+        }
 
         if (catId != -1 & supId == -1) {
             ProductCategory category = productCatDataStore.find(catId);
