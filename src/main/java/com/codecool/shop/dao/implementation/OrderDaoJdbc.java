@@ -1,7 +1,8 @@
 package com.codecool.shop.dao.implementation;
 
-import com.codecool.shop.dao.DatabaseConnection;
 import com.codecool.shop.dao.OrderDao;
+import com.codecool.shop.database.DatabaseConnection;
+import com.codecool.shop.database.DatabaseLive;
 import com.codecool.shop.model.Order;
 
 import java.sql.PreparedStatement;
@@ -13,16 +14,6 @@ public class OrderDaoJdbc extends DatabaseConnection implements OrderDao {
 
     @Override
     public void add(Order order) {
-        try {
-            PreparedStatement stmt = getConnection().prepareStatement(
-                    "INSERT INTO orderitem (" +
-                            "itemid, orderid," +
-                            " productid, productprice, qty)" +
-                            "VALUES (?,?,?,?,?)");
-
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
 
     }
 

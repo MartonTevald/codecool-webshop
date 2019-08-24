@@ -1,8 +1,12 @@
 package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.dao.ProductCategoryDao;
+import com.codecool.shop.database.DatabaseConnection;
+import com.codecool.shop.database.DatabaseLive;
+import com.codecool.shop.database.DatabaseTest;
 import com.codecool.shop.model.ProductCategory;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.postgresql.util.PSQLException;
 
@@ -15,6 +19,10 @@ class ProductCategoryDaoJdbcTest {
     TestUtil testUtil = new TestUtil();
     ProductCategoryDao prodCatDatabase = new ProductCategoryDaoJdbc();
 
+    @BeforeEach
+    void setupDb() {
+        testUtil.setupDatabase();
+    }
 
     @AfterEach
     void setup() {

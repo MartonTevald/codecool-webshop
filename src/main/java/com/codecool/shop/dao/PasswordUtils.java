@@ -15,6 +15,8 @@ public class PasswordUtils {
     private static final int ITERATIONS = 10000;
     private static final int KEY_LENGTH = 256;
 
+    private static String salt = "qlgL4uRrLDv7c7ebhuT806nVOy2HZ9";
+
     public static String getSalt(int length) {
         StringBuilder returnValue = new StringBuilder(length);
         for (int i = 0; i < length; i++) {
@@ -56,5 +58,9 @@ public class PasswordUtils {
         returnValue = newSecurePassword.equalsIgnoreCase(securedPassword);
 
         return returnValue;
+    }
+
+    public static String getSalt() {
+        return salt;
     }
 }

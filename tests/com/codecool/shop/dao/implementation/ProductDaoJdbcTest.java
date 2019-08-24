@@ -1,6 +1,6 @@
 package com.codecool.shop.dao.implementation;
 
-import com.codecool.shop.dao.DatabaseConnection;
+import com.codecool.shop.database.DatabaseConnection;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
@@ -20,8 +20,11 @@ class ProductDaoJdbcTest extends DatabaseConnection {
     private SupplierDao suppli = new SupplierDaoJdbc();
     private ProductCategoryDao prodCat = new ProductCategoryDaoJdbc();
 
+
     @BeforeEach
     void setup(){
+        testUtil.setupDatabase();
+
         suppli.add(sup1);
         suppli.add(sup2);
         prodCat.add(cat1);

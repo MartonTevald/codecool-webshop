@@ -1,4 +1,4 @@
-package com.codecool.shop.dao;
+package com.codecool.shop.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,10 +6,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DatabaseConnection {
-    private static final String DATABASE = System.getenv("DATABASE");
+
     private static final String DB_USER = System.getenv("DB_USER");
     private static final String DB_PASSWORD = System.getenv("DB_PASSWORD");
-    private static final String DB_URL = "jdbc:postgresql://localhost:5432/" + DATABASE;
+    private static String DB_URL;
 
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(
@@ -30,4 +30,8 @@ public class DatabaseConnection {
         }
     }
 
+
+    public void setDatabase(DataBaseDao db) {
+        this.DB_URL = db.getConnection();
+    }
 }

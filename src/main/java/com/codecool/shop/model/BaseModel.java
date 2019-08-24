@@ -1,8 +1,6 @@
 package com.codecool.shop.model;
 
 
-import com.codecool.shop.dao.DatabaseConnection;
-
 import java.lang.reflect.Field;
 
 public class BaseModel{

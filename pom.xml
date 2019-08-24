@@ -10,15 +10,21 @@
     <packaging>war</packaging>
 
     <properties>
-      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-      <jetty.version>9.4.12.v20180830</jetty.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <jetty.version>9.4.12.v20180830</jetty.version>
     </properties>
+
 
     <build>
         <finalName>codecoolshop</finalName>
         <sourceDirectory>src/main/java</sourceDirectory>
 
         <plugins>
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -40,7 +46,7 @@
                 <configuration>
                     <!-- On some configs this causes shutdown of context on -->
                     <!-- a page load so disabled. -->
-<!--                     <reload>automatic</reload>-->
+                    <!--                     <reload>automatic</reload>-->
                     <!-- <scanIntervalSeconds>1</scanIntervalSeconds> -->
                 </configuration>
             </plugin>
@@ -56,9 +62,8 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
-            <version>1.7.5</version>
+            <version>1.7.13</version>
         </dependency>
-
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>

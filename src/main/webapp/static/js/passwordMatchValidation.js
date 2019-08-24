@@ -1,10 +1,10 @@
 function checkPassword() {
-    var firstPassword = document.getElementById("password").value;
-    var secondPassword = document.getElementById("confirm_password").value;
+    var firstPassword = document.getElementById("inputPws").value;
+    var secondPassword = document.getElementById("inputConfirmPws").value;
     if (firstPassword !== secondPassword) {
         alert("\nPassword did not match: Please try again...")
-        var submitValue = document.getElementById("register").value = "false";
+        document.getElementById("registerValid").value = "false";
     }else {
-        var submitValue = document.getElementById("register").value = "true";
+        document.getElementById("registerValid").value = "true";
     }
 }

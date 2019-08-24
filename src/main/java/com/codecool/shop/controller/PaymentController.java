@@ -33,6 +33,9 @@ public class PaymentController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String sessionUserId = String.valueOf(req.getSession().getAttribute("userID"));
+
+
         doGet(req, resp);
 
         Cart cart = Cart.getInstance();

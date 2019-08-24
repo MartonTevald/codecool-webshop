@@ -17,6 +17,7 @@ class SupplierDaoJdbcTest {
 
     @AfterEach
     void setup() {
+        testUtil.setupDatabase();
         testUtil.removeAll(testUtil.product);
         testUtil.removeAll(testUtil.prodcat);
         testUtil.removeAll(testUtil.supplier);

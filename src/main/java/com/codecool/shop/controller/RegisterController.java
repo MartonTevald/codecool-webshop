@@ -2,7 +2,7 @@ package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.PasswordUtils;
-import com.codecool.shop.dao.implementation.RegisterJdbc;
+import com.codecool.shop.dao.implementation.UserDaoJdbc;
 import com.codecool.shop.model.User;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
@@ -36,21 +36,20 @@ public class RegisterController extends HttpServlet {
         String password = req.getParameter("password");
         String username = req.getParameter("username");
         String fullname = fname + " " + lname;
-        String check = req.getParameter("register");
-        if(check.equals("true")) {
+        String check = req.getParameter("registerValid");
+        if (check.equals("true")) {
 
-            String salt = PasswordUtils.getSalt(30);
+            String salt = PasswordUtils.getSalt();
             String mySecurePassword = PasswordUtils.generateSecurePassword(password, salt);
 
-            RegisterJdbc regJdbc = new RegisterJdbc();
-            User user = new User(fullname, username, email, mySecurePassword);
-            regJdbc.addUser(user);
+            UserDaoJdbc regJdbc = new UserDaoJdbc();
+            User user = new User(1, fullname, username, email, mySecurePassword);
+            regJdbc.add(user);
             resp.sendRedirect("/");
 
-        }else {
-            resp.sendRedirect("/reg");
+        } else {
+            resp.sendRedirect("/");
         }
-
 
 
     }

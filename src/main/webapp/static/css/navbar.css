@@ -1,0 +1,63 @@
+.pb-modalreglog-container
+{
+    margin-top: 100px;
+}
+
+.pb-modalreglog-legend
+{
+    text-align: center;
+}
+
+.pb-modalreglog-input-group
+{
+    margin: auto;
+    float: right;
+}
+
+.pb-modalreglog-submit
+{
+    margin-left: 5px;
+}
+
+.pb-modalreglog-form-reg
+{
+    text-align: center;
+}
+
+.pb-modalreglog-footer p
+{
+    text-align: center;
+    margin-top: 20px;
+}
+
+#pb-modalreglog-progressbar
+{
+    border-radius: 2px;
+}
+.btn-btn-navbar
+{
+    background-color: forestgreen;
+    color: white;
+    border: none;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 12px;
+
+}
+.btn-btn-navbar:hover{
+    background-color: green;
+    color: white;
+    border: none;
+}
+.close{
+    background-color: forestgreen;
+    color: white;
+    border: none;
+    padding: 5px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 12px;
+}

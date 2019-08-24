@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:fragment="copy">
+    <script src="../static/js/passwordMatchValidation.js" defer></script>
+
+    <link rel="stylesheet" type="text/css" href="/static/css/navbar.css"/>
+    <div class="container pb-modalreglog-container">
+        <div class="row">
+
+            <div class="col-xs-12 col-md-4 col-md-offset-4">
+                <div class="input-group pb-modalreglog-input-group">
+                    <button th:if="${user != null}" class="btn-btn-navbar" data-toggle="modal" data-target="#myModal">
+                        Login
+                    </button>
+                    <button th:if="${user == null}" class="btn-btn-navbar" data-toggle="modal" data-target="#myModal2">
+                        Register
+                    </button>
+                </div>
+                <a th:if="${user !=null }" class="btn-btn-navbar" href="/logout" method="post"
+                        data-toggle="modal">
+                    Logout
+                </a>
+
+                <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog modal-sm" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <form name="reg" action="/reg" method="post" onsubmit=" checkPassword(),checkEmail()">
+                                    <h3>Register Details</h3>
+                                    <label for="fname"><i class="fa fa-user"></i> First Name</label>
+                                    <input type="text" id="fname" name="firstname" placeholder="John" required
+                                           minlength="1">
+
+                                    <label for="lname"><i class="fa fa-user"></i> Last Name</label>
+                                    <input type="text" id="lname" name="lastname" placeholder="Wick" required
+                                           minlength="1">
+
+                                    <label for="username"><i class="fa fa-user"></i> Username</label>
+                                    <input type="text" id="username" name="username" placeholder="Wickanio" required
+                                           minlength="1"><br>
+
+                                    <label for="email"><i class="fa fa-user"></i> Email</label><br>
+                                    <input type="email" id="email" name="email" placeholder="john.wick@example.com"
+                                           required
+                                           minlength="1"><br>
+
+                                    <label for="inputPws"><i class="fa fa-user"></i> Password</label><br>
+                                    <input type="password" id="inputPws" name="password" placeholder="a@2b!dT" required
+                                           minlength="1">
+
+                                    <label for="inputConfirmPws"><i class="fa fa-user"></i> Confirm password</label>
+                                    <input type="password" id="inputConfirmPws" name="confirm_password"
+                                           placeholder="a@2b!dT" required
+                                           minlength="1">
+
+                                    <input class="btn btn-success" id="registerValid" name="registerValid" type="submit"
+                                           value="Register">
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        </div>
+                        <div class="modal-body">
+                            <form action="/login" method="post">
+                                <div class="form-group">
+                                    <label for="username">Username</label>
+                                    <div class="input-group pb-modalreglog-input-group">
+                                        <input type="text" class="form-control" name="login-username"
+                                               id="login-username" placeholder="John">
+                                        <span class="input-group-addon"><span
+                                                class="glyphicon glyphicon-user"></span></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="login-password">Password</label>
+                                    <div class="input-group pb-modalreglog-input-group">
+                                        <input type="password" class="form-control" name="login-password"
+                                               id="login-password" placeholder="Password">
+                                        <span class="input-group-addon"><span
+                                                class="glyphicon glyphicon-lock"></span></span>
+                                    </div>
+                                </div>
+                                <input class="btn btn-success" id="loginValid" name="loginValid" type="submit"
+                                       value="Login">
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
