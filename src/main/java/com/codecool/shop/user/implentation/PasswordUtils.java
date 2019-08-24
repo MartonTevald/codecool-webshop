@@ -1,4 +1,4 @@
-package com.codecool.shop.dao;
+package com.codecool.shop.user.implentation;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;

@@ -5,6 +5,7 @@ import com.codecool.shop.dao.implementation.OrderDaoMem;
 import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.Order;
 import com.codecool.shop.model.Product;
+import com.codecool.shop.user.implentation.SessionUtil;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -23,17 +24,19 @@ public class PaymentController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Cart cart = Cart.getInstance();
         float sum = cart.getSumOfPrice();
+        SessionUtil sessionUtil = new SessionUtil();
+        String value = sessionUtil.readFromSession(req, "userID");
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
         context.setVariable("sum", sum);
+        context.setVariable("user",value);
 
         engine.process("product/payment.html", context, resp.getWriter());
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String sessionUserId = String.valueOf(req.getSession().getAttribute("userID"));
 
 
         doGet(req, resp);

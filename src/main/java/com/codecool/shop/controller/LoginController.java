@@ -1,16 +1,13 @@
 package com.codecool.shop.controller;
 
-import com.codecool.shop.dao.PasswordUtils;
-import com.codecool.shop.dao.UserDao;
-import com.codecool.shop.dao.implementation.UserDaoJdbc;
-import com.codecool.shop.model.User;
+import com.codecool.shop.user.implentation.PasswordUtils;
+import com.codecool.shop.user.implentation.UserDao;
+import com.codecool.shop.user.implentation.UserDaoJdbc;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
@@ -43,8 +40,9 @@ public class LoginController extends HttpServlet {
             newSession.setAttribute("userID", userId);
 
             response.sendRedirect("/");
+        }else {
+
         }
-        response.sendRedirect("/");
     }
 }
 

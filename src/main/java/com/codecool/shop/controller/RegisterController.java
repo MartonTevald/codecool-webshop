@@ -1,11 +1,8 @@
 package com.codecool.shop.controller;
 
-import com.codecool.shop.config.TemplateEngineUtil;
-import com.codecool.shop.dao.PasswordUtils;
-import com.codecool.shop.dao.implementation.UserDaoJdbc;
+import com.codecool.shop.user.implentation.PasswordUtils;
+import com.codecool.shop.user.implentation.UserDaoJdbc;
 import com.codecool.shop.model.User;
-import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.context.WebContext;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,14 +18,11 @@ public class RegisterController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
-        WebContext context = new WebContext(req, resp, req.getServletContext());
-        engine.process("product/register.html", context, resp.getWriter());
-
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
 
         String fname = req.getParameter("firstname");
         String lname = req.getParameter("lastname");

@@ -1,7 +1,7 @@
-package com.codecool.shop.dao.implementation;
+package com.codecool.shop.user.implentation;
 
 
-import com.codecool.shop.dao.UserDao;
+import com.codecool.shop.user.implentation.UserDao;
 import com.codecool.shop.database.DatabaseConnection;
 import com.codecool.shop.model.Order;
 import com.codecool.shop.model.User;

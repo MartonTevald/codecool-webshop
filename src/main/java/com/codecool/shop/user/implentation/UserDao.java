@@ -1,4 +1,4 @@
-package com.codecool.shop.dao;
+package com.codecool.shop.user.implentation;
 
 
 import com.codecool.shop.model.Order;

@@ -11,17 +11,23 @@
 
             <div class="col-xs-12 col-md-4 col-md-offset-4">
                 <div class="input-group pb-modalreglog-input-group">
-                    <button th:if="${user != null}" class="btn-btn-navbar" data-toggle="modal" data-target="#myModal">
+                    <button th:if="${user == '-1'}" class="btn-btn-navbar" data-toggle="modal"
+                            data-target="#myModal">
                         Login
                     </button>
-                    <button th:if="${user == null}" class="btn-btn-navbar" data-toggle="modal" data-target="#myModal2">
+
+                    <button th:if="${user == '-1'}" class="btn-btn-navbar" data-toggle="modal"
+                            data-target="#myModal2">
                         Register
                     </button>
+                    <form action="/logout" method="get">
+                        <button  th:if="${user != '-1'} " class="btn-btn-navbar"
+                                data-toggle="modal">
+                            Logout
+                        </button>
+                    </form>
+
                 </div>
-                <a th:if="${user !=null }" class="btn-btn-navbar" href="/logout" method="post"
-                        data-toggle="modal">
-                    Logout
-                </a>
 
                 <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
                      aria-hidden="true">

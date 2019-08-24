@@ -4,12 +4,13 @@ import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.dao.UserDao;
+import com.codecool.shop.user.implentation.SessionUtil;
+import com.codecool.shop.user.implentation.UserDao;
 import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
-import com.codecool.shop.model.User;
+import com.codecool.shop.user.implentation.UserDaoJdbc;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -32,15 +33,14 @@ public class ProductController extends HttpServlet {
         ProductDao productDataStore = new ProductDaoJdbc();
         ProductCategoryDao productCategoryDataStore = new ProductCategoryDaoJdbc();
         SupplierDao supplierDataStore = new SupplierDaoJdbc();
-
-
-        String sessionUserId = String.valueOf(req.getSession().getAttribute("userID"));
-        User userInfo = userJdbc.find(sessionUserId);
-
+        SessionUtil sessionUtil = new SessionUtil();
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-        context.setVariable("user", userInfo);
+
+        String value = sessionUtil.readFromSession(req, "userID");
+        context.setVariable("user", value);
+
         context.setVariable("category", productCategoryDataStore.getAll());
         context.setVariable("products", productDataStore.getAll());
         context.setVariable("supplier", supplierDataStore.getAll());
