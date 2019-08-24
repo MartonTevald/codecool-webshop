@@ -37,11 +37,12 @@ public class LoginController extends HttpServlet {
 
             int userId = userJdbc.find(username).getId();
 
-            newSession.setAttribute("userID", userId);
+            newSession.setAttribute("userID", username);
 
             response.sendRedirect("/");
         }else {
 
+                response.sendRedirect("/");
         }
     }
 }

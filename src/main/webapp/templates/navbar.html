@@ -26,6 +26,7 @@
                             Logout
                         </button>
                     </form>
+                    <p class="btn-btn-navbar" th:if="${user != '-1'}" th:text="${'Logged in as '+ user}"></p>
 
                 </div>
 
