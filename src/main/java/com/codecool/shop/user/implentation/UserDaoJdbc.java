@@ -133,7 +133,8 @@ public class UserDaoJdbc extends DatabaseConnection implements UserDao {
                     "SELECT password FROM user_details WHERE username = ?");
             stmt.setString(1, username);
             ResultSet resultSet = stmt.executeQuery();
-            while (resultSet.next()) {
+            while (true) {
+                if (!resultSet.next()) break;
                 return resultSet.getString("password");
             }
         } catch (SQLException e) {

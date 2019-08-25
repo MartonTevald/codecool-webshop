@@ -16,12 +16,13 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
-    <script src="../../static/js/modalLoginReg.js" defer></script>
 
 </head>
 <body>
 <div class="jumbotron text-center">
     <img src="/static/img/codecoolshop.png">
+</div>
+<div th:text="${#request.getAttribute('errorMessage')}")>
 </div>
 <div th:replace="navbar.html :: copy"></div>
 

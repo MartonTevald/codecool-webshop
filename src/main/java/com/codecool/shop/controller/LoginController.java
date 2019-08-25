@@ -1,5 +1,6 @@
 package com.codecool.shop.controller;
 
+import com.codecool.shop.model.User;
 import com.codecool.shop.user.implentation.PasswordUtils;
 import com.codecool.shop.user.implentation.UserDao;
 import com.codecool.shop.user.implentation.UserDaoJdbc;
@@ -11,7 +12,6 @@ import java.io.IOException;
 
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
-
 
 
     protected void doPost(HttpServletRequest request,
@@ -27,23 +27,27 @@ public class LoginController extends HttpServlet {
         String salt = PasswordUtils.getSalt();
 
         if (username != null) {
-            hashedPwd = userJdbc.find(username).getPassword();
+            User checkUser = userJdbc.find(username);
+            if(checkUser != null){
+                hashedPwd = checkUser.getPassword();
+            }else {
+                request.setAttribute("errorMessage","Invalid password or username. You might try again or Register ");
+                request.getRequestDispatcher("/error").forward(request,response);
+            }
         }
+
         boolean passwordMatch = PasswordUtils.verifyUserPassword(password, hashedPwd, salt);
 
 
         if (passwordMatch) {
             HttpSession newSession = request.getSession(true);
 
-            int userId = userJdbc.find(username).getId();
 
             newSession.setAttribute("userID", username);
-
             response.sendRedirect("/");
-        }else {
 
-                response.sendRedirect("/");
         }
+        response.sendRedirect("/");
     }
 }
 
