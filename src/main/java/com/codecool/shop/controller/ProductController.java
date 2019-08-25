@@ -66,7 +66,7 @@ public class ProductController extends HttpServlet {
 
             if (catId != -1 & supId == -1) {
                 ProductCategory category = productCatDataStore.find(catId);
-                products = productDataStore.getBy(category);
+                products = productDataStore.getAll();
                 context.setVariable("category", category);
             }
             if (catId == -1 & supId != -1) {
