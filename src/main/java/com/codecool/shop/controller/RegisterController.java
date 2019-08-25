@@ -16,20 +16,15 @@ import java.io.IOException;
 public class RegisterController extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-    }
-
-    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 
-        String fname = req.getParameter("firstname");
-        String lname = req.getParameter("lastname");
+        String fName = req.getParameter("firstname");
+        String lName = req.getParameter("lastname");
         String email = req.getParameter("email");
         String password = req.getParameter("password");
         String username = req.getParameter("username");
-        String fullname = fname + " " + lname;
+        String fullName = fName + " " + lName;
         String check = req.getParameter("registerValid");
         if (check.equals("true")) {
 
@@ -37,7 +32,7 @@ public class RegisterController extends HttpServlet {
             String mySecurePassword = PasswordUtils.generateSecurePassword(password, salt);
 
             UserDaoJdbc regJdbc = new UserDaoJdbc();
-            User user = new User(1, fullname, username, email, mySecurePassword);
+            User user = new User(1, fullName, username, email, mySecurePassword);
             regJdbc.add(user);
             resp.sendRedirect("/");
 
