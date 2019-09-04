@@ -13,9 +13,11 @@ import static org.junit.jupiter.api.Assertions.*;
 class ProductDaoMemTest {
 
     private ProductDaoMem prod;
+    TestUtil testUtil = new TestUtil();
 
     @BeforeEach
     void setup(){
+        testUtil.setupDatabase();
         prod = ProductDaoMem.getInstance();
         prod.getAll().clear();
     }
