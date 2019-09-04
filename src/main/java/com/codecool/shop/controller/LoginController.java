@@ -28,23 +28,24 @@ public class LoginController extends HttpServlet {
 
         if (username != null) {
             User checkUser = userJdbc.find(username);
-            if(checkUser != null){
+            if (checkUser != null) {
                 hashedPwd = checkUser.getPassword();
-            }else {
-                request.setAttribute("errorMessage","Invalid password or username. You might try again or Register ");
-                request.getRequestDispatcher("/error").forward(request,response);
+            } else {
+                request.setAttribute("errorMessage", "Invalid password or username. You might try again or Register ");
+                request.getRequestDispatcher("/error").forward(request, response);
             }
         }
 
         boolean passwordMatch = PasswordUtils.verifyUserPassword(password, hashedPwd, salt);
 
-
         if (passwordMatch) {
             HttpSession newSession = request.getSession(true);
-
-
             newSession.setAttribute("userID", username);
             response.sendRedirect("/");
+
+        } else {
+            request.setAttribute("errorMessage", "Invalid password or username. You might try again or Register ");
+            request.getRequestDispatcher("/error").forward(request, response);
 
         }
         response.sendRedirect("/");
