@@ -22,6 +22,11 @@ public class Cart {
 
     private HashMap<Product, Integer> cart = new HashMap<>();
 
+
+    public void clearCartItems() {
+        cart.clear();
+    }
+
     public float getSumOfPrice() {
         float sum = 0;
         for (Map.Entry<Product, Integer> map : cart.entrySet()) {

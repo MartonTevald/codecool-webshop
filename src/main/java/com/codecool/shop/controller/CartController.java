@@ -7,6 +7,7 @@ import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.user.implentation.SessionUtil;
+import com.codecool.shop.user.implentation.UserDao;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -33,6 +34,7 @@ public class CartController extends HttpServlet {
         List<Product> pod = Cart.getInstance().getProducts();
         SessionUtil sessionUtil = new SessionUtil();
         String value = sessionUtil.readFromSession(req, "userID");
+
         context.setVariable("user", value);
 
         context.setVariable("numberOfProducts", Cart.getInstance().getNumberOfProducts());
@@ -51,6 +53,7 @@ public class CartController extends HttpServlet {
         ProductDao productDataStore = new ProductDaoJdbc();
 
         Cart cart = Cart.getInstance();
+
 
 
 
