@@ -4,10 +4,13 @@ import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
+import com.codecool.shop.user.implentation.SessionUtil;
+import com.codecool.shop.user.implentation.UserDao;
 import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
+import com.codecool.shop.user.implentation.UserDaoJdbc;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -25,13 +28,18 @@ public class ProductController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         ProductDao productDataStore = new ProductDaoJdbc();
         ProductCategoryDao productCategoryDataStore = new ProductCategoryDaoJdbc();
         SupplierDao supplierDataStore = new SupplierDaoJdbc();
-
+        SessionUtil sessionUtil = new SessionUtil();
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
+
+        String value = sessionUtil.readFromSession(req, "userID");
+        context.setVariable("user", value);
+
         context.setVariable("category", productCategoryDataStore.getAll());
         context.setVariable("products", productDataStore.getAll());
         context.setVariable("supplier", supplierDataStore.getAll());
@@ -45,10 +53,13 @@ public class ProductController extends HttpServlet {
         ProductDao productDataStore = new ProductDaoJdbc();
         SupplierDao supplierDataStore = new SupplierDaoJdbc();
         ProductCategoryDao productCatDataStore = new ProductCategoryDaoJdbc();
+        SessionUtil sessionUtil = new SessionUtil();
         List<Product> products = null;
+        String value = sessionUtil.readFromSession(req, "userID");
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
+        context.setVariable("user", value);
         context.setVariable("categoryFilter", productCatDataStore.getAll());
         context.setVariable("supplierFilter", supplierDataStore.getAll());
 

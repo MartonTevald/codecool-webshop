@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductCategoryDaoJdbc extends DatabaseConnection implements ProductCategoryDao {
+
     @Override
     public void add(ProductCategory category) {
         String query = "INSERT INTO prodcat (id,name, department ,description)" +
