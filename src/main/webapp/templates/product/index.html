@@ -16,11 +16,16 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
+
 </head>
 <body>
 <div class="jumbotron text-center">
     <img src="/static/img/codecoolshop.png">
 </div>
+<div th:text="${#request.getAttribute('errorMessage')}")>
+</div>
+<div th:replace="navbar.html :: copy"></div>
+
 <div class="container">
     <div class="card list-group-item">
         <form action="/" method="post">
@@ -37,10 +42,10 @@
                 </option>
             </select>
             <button class="btn btn-success" type="submit">Filter</button>
-            <a class="btn btn-success" href="/cart">Shopping cart</a>
-            <a class="btn btn-success" href="/checkout">Checkout</a>
+            <a th:if="${user != '-1'} " class="btn btn-success" href="/cart">Shopping cart</a>
+            <a th:if="${user != '-1'} " class="btn btn-success" href="/checkout">Checkout</a>
             <input name="search" placeholder="Search..">
-        </form>
+      </form>
     </div>
     <div class="card" th:if="${category != null}" th:each=" cat : ${category}">
         <br><strong th:text="${cat.name}">Category Title</strong><br>
