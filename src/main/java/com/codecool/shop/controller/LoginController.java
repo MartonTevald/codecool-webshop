@@ -19,7 +19,6 @@ public class LoginController extends HttpServlet {
 
         UserDao userJdbc = new UserDaoJdbc();
 
-
         String username = request.getParameter("login-username");
         String password = request.getParameter("login-password");
         String hashedPwd = null;

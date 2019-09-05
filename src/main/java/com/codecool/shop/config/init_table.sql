@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS product, supplier, prodCat;
+DROP TABLE IF EXISTS product, supplier, prodCat,supplier,user_details,"order",order_details;
 
 CREATE TABLE supplier
 (
@@ -28,20 +28,16 @@ CREATE TABLE product
 
 CREATE TABLE user_details
 (
-    id               SERIAL PRIMARY KEY,
-    fullname         varchar,
-    username         varchar,
-    email            varchar,
-    password         varchar,
-    phonenumber      varchar,
-    address          varchar,
-    city             varchar,
-    state            varchar,
-    zip              varchar,
-    shipping_address varchar,
-    shipping_city    varchar,
-    shipping_state   varchar,
-    shipping_zip     varchar
+    id          SERIAL PRIMARY KEY,
+    fullname    varchar,
+    username    varchar,
+    email       varchar,
+    password    varchar,
+    phonenumber varchar,
+    address     varchar,
+    city        varchar,
+    state       varchar,
+    zip         varchar
 );
 
 CREATE TABLE "order"
@@ -70,6 +66,9 @@ VALUES ('Apple', 'Computers and Digital content', 'Apple Inc.');
 
 INSERT INTO supplier(name, department, description)
 VALUES ('Mustang', 'Motorbikes', 'Mustang Inc.');
+
+INSERT INTO supplier(name, department, description)
+VALUES ('Pinkie', 'Evertyhing', 'Pinkie Inc.');
 
 
 INSERT INTO prodCat (name, department, description)
@@ -121,3 +120,6 @@ VALUES ('Apple iPad Pro (12.9-inch, Wi-Fi, 256GB) ',
 
 INSERT INTO product(name, description, price, supplier_id, prodCat_id)
 VALUES ('Java 50', 'The ultimate tool if it comes to change geoposition and you are a developer.', '9999', 4, 3);
+
+INSERT INTO product(name, description, price, supplier_id, prodCat_id)
+VALUES ('Barbie', 'The ultimate adult oh sorry kid laptop.', '999', 5, 2)

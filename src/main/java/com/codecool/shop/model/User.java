@@ -13,10 +13,6 @@ public class User {
     private String city;
     private String state;
     private String zip;
-    private String shipping_address;
-    private String shipping_city;
-    private String shipping_state;
-    private String shipping_zip;
     private List<User> users;
 
 
@@ -90,21 +86,6 @@ public class User {
         this.zip = zip;
     }
 
-    public void setShipping_address(String shipping_address) {
-        this.shipping_address = shipping_address;
-    }
-
-    public void setShipping_city(String shipping_city) {
-        this.shipping_city = shipping_city;
-    }
-
-    public void setShipping_state(String shipping_state) {
-        this.shipping_state = shipping_state;
-    }
-
-    public void setShipping_zip(String shipping_zip) {
-        this.shipping_zip = shipping_zip;
-    }
 
     public int getId() {
         return id;
