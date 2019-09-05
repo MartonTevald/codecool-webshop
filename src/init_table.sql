@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS product, supplier, prodCat;
+DROP TABLE IF EXISTS product, supplier, prodCat,supplier,user_details,"order",order_details;
 
 CREATE TABLE supplier
 (
@@ -28,20 +28,16 @@ CREATE TABLE product
 
 CREATE TABLE user_details
 (
-    id               SERIAL PRIMARY KEY,
-    fullname         varchar,
-    username         varchar,
-    email            varchar,
-    password         varchar,
-    phonenumber      varchar,
-    address          varchar,
-    city             varchar,
-    state            varchar,
-    zip              varchar,
-    shipping_address varchar,
-    shipping_city    varchar,
-    shipping_state   varchar,
-    shipping_zip     varchar
+    id          SERIAL PRIMARY KEY,
+    fullname    varchar,
+    username    varchar,
+    email       varchar,
+    password    varchar,
+    phonenumber varchar,
+    address     varchar,
+    city        varchar,
+    state       varchar,
+    zip         varchar
 );
 
 CREATE TABLE "order"

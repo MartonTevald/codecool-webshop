@@ -2,22 +2,22 @@ package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.dao.implementation.OrderDaoJdbc;
+import com.codecool.shop.dao.implementation.OrderStatus;
 import com.codecool.shop.dao.implementation.ProductDaoJdbc;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.user.implentation.SessionUtil;
-import com.codecool.shop.user.implentation.UserDao;
+import com.codecool.shop.user.implentation.UserDaoJdbc;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 
 @WebServlet(urlPatterns = {"/cart"})
@@ -27,21 +27,28 @@ public class CartController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 
-
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
         ProductDao productDataStore = ProductDaoMem.getInstance();
         List<Product> pod = Cart.getInstance().getProducts();
         SessionUtil sessionUtil = new SessionUtil();
+        OrderDaoJdbc orderDaoJBDC = new OrderDaoJdbc();
+        UserDaoJdbc userDaoJdbc = new UserDaoJdbc();
+
         String value = sessionUtil.readFromSession(req, "userID");
+        int userId = userDaoJdbc.getUserId(value);
+
+        if (!orderDaoJBDC.isThereAnOpenOrder(OrderStatus.NEW.toString(), userId)
+                || !orderDaoJBDC.isThereAnOpenOrder(OrderStatus.CHECKED.toString(), userId)
+                || orderDaoJBDC.isThereAnOpenOrder(OrderStatus.PAID.toString(), userId)) {
+            orderDaoJBDC.addOrder(userId, OrderStatus.NEW.toString());
+        }
 
         context.setVariable("user", value);
-
         context.setVariable("numberOfProducts", Cart.getInstance().getNumberOfProducts());
         context.setVariable("cartHash", Cart.getInstance().getCart());
         context.setVariable("cart", pod);
         context.setVariable("products", productDataStore.getAll());
-
         context.setVariable("sum", Cart.getInstance().getSumOfPrice());
 
         engine.process("product/cart.html", context, resp.getWriter());
@@ -53,8 +60,6 @@ public class CartController extends HttpServlet {
         ProductDao productDataStore = new ProductDaoJdbc();
 
         Cart cart = Cart.getInstance();
-
-
 
 
         String addToCart = req.getParameter("addToCartButton");
@@ -72,7 +77,7 @@ public class CartController extends HttpServlet {
             cart.addToCart(product);
         }
 
-            String removeFromToCart = req.getParameter("remove");
+        String removeFromToCart = req.getParameter("remove");
         if (removeFromToCart != null) {
             int id = Integer.parseInt(removeFromToCart);
             Product product = productDataStore.find(id);

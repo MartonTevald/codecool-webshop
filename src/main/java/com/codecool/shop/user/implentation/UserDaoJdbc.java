@@ -1,7 +1,7 @@
 package com.codecool.shop.user.implentation;
 
 
-import com.codecool.shop.user.implentation.UserDao;
+
 import com.codecool.shop.database.DatabaseConnection;
 import com.codecool.shop.model.Order;
 import com.codecool.shop.model.User;
@@ -14,6 +14,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoJdbc extends DatabaseConnection implements UserDao {
+
+    public void addUserDetails(String phoneNumber, String address, String city, String state, String zip, int user_id) {
+        String query = "UPDATE user_details" +
+                " SET phonenumber = ?,address= ? ,city= ? ,state=?,zip = ?" +
+                "WHERE user_details.id =?";
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, phoneNumber);
+            statement.setString(2, address);
+            statement.setString(3, city);
+            statement.setString(4, state);
+            statement.setString(5, zip);
+            statement.setInt(6, user_id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void add(User user) {

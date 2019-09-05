@@ -30,11 +30,11 @@
         <div class="container">
             <div class="col-50">
                 <h4>Confirmation Successful</h4>
-                <div class="cont" th:each="ord : ${order} ">
+                <div class="cont">
                     <br><strong
-                        th:text="${'Thanks for the purchase and have a nice day '+ord.name +' .' }">Name</strong><br>
+                        th:text="${'Thanks for the purchase and have a nice day '+ user +' .' }">Name</strong><br>
                 </div>
-                <strong th:text="${'Total Price: '+order.sumTotal()+' USD'}"></strong>
+                <strong th:text="${'Total Price: '+sumTotal+' USD'}"></strong>
                 <b><strong>Your order is being processed. Estimated time of arrival : Never.</strong></b>
                 <form action="/" method="get">
                     <button type="submit">Continue shopping</button>

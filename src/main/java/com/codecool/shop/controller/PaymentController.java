@@ -1,15 +1,11 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
-import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.implementation.OrderDaoJdbc;
-import com.codecool.shop.dao.implementation.OrderDaoMem;
 import com.codecool.shop.dao.implementation.OrderStatus;
 import com.codecool.shop.model.Cart;
-import com.codecool.shop.model.Order;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.user.implentation.SessionUtil;
-import com.codecool.shop.user.implentation.UserDao;
 import com.codecool.shop.user.implentation.UserDaoJdbc;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
@@ -48,32 +44,25 @@ public class PaymentController extends HttpServlet {
         doGet(req, resp);
         Cart cart = Cart.getInstance();
         SessionUtil sessionUtil = new SessionUtil();
+        UserDaoJdbc userDaoJDBC = new UserDaoJdbc();
+        OrderDaoJdbc orderDaoJBDC = new OrderDaoJdbc();
         String userName = sessionUtil.readFromSession(req, "userID");
 
-        UserDao userDaoJDBC = new UserDaoJdbc();
-        int userId = userDaoJDBC.getUserId(userName);
 
-        OrderDaoJdbc orderDaoJBDC = new OrderDaoJdbc();
+        int userId = userDaoJDBC.getUserId(userName);
         orderDaoJBDC.updateOrderStatus(userId, OrderStatus.CHECKED.toString(), OrderStatus.NEW.toString());
 
         HashMap<Product, Integer> c = cart.getCart();
-        Order order = new Order(c);
 
         String name = req.getParameter("firstname");
         String email = req.getParameter("email");
+
         String address = req.getParameter("address");
         String city = req.getParameter("city");
         String state = req.getParameter("state");
         String zip = req.getParameter("zip");
         String phone = req.getParameter("phone");
 
-        order.setPhoneNumber(phone);
-        order.setName(name);
-        order.setEmail(email);
-        order.setBillingAddress(address + ";" + city + ";" + state + ";" + zip);
-
-        OrderDaoMem.getInstance().add(order);
-
-
+        userDaoJDBC.addUserDetails(phone, address, city, state, zip, userId);
     }
 }
