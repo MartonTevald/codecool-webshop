@@ -67,6 +67,9 @@ VALUES ('Apple', 'Computers and Digital content', 'Apple Inc.');
 INSERT INTO supplier(name, department, description)
 VALUES ('Mustang', 'Motorbikes', 'Mustang Inc.');
 
+INSERT INTO supplier(name, department, description)
+VALUES ('Pinkie', 'Evertyhing', 'Pinkie Inc.');
+
 
 INSERT INTO prodCat (name, department, description)
 VALUES ('Tablet', 'Hardware', 'A tablet computer, commonly ' ||
@@ -117,3 +120,6 @@ VALUES ('Apple iPad Pro (12.9-inch, Wi-Fi, 256GB) ',
 
 INSERT INTO product(name, description, price, supplier_id, prodCat_id)
 VALUES ('Java 50', 'The ultimate tool if it comes to change geoposition and you are a developer.', '9999', 4, 3);
+
+INSERT INTO product(name, description, price, supplier_id, prodCat_id)
+VALUES ('Barbie', 'The ultimate adult oh sorry kid laptop.', '999', 5, 2)
