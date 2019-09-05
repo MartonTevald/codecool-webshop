@@ -29,6 +29,12 @@ public class ProductDaoMem extends DatabaseConnection implements ProductDao {
     }
 
     @Override
+    public List<Product> findBySearch(String search) {
+
+        return null;
+    }
+
+    @Override
     public void add(Product product) {
         product.setId(data.size() + 1);
         data.add(product);

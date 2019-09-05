@@ -44,8 +44,8 @@
             <button class="btn btn-success" type="submit">Filter</button>
             <a th:if="${user != '-1'} " class="btn btn-success" href="/cart">Shopping cart</a>
             <a th:if="${user != '-1'} " class="btn btn-success" href="/checkout">Checkout</a>
-
-        </form>
+            <input name="search" placeholder="Search..">
+      </form>
     </div>
     <div class="card" th:if="${category != null}" th:each=" cat : ${category}">
         <br><strong th:text="${cat.name}">Category Title</strong><br>

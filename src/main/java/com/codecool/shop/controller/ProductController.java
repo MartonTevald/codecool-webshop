@@ -4,6 +4,9 @@ import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
+import com.codecool.shop.dao.implementation.ProductCategoryDaoJdbc;
+import com.codecool.shop.dao.implementation.ProductDaoJdbc;
+import com.codecool.shop.dao.implementation.SupplierDaoJdbc;
 import com.codecool.shop.user.implentation.SessionUtil;
 import com.codecool.shop.user.implentation.UserDao;
 import com.codecool.shop.dao.implementation.*;
@@ -66,30 +69,35 @@ public class ProductController extends HttpServlet {
 
         int catId = Integer.parseInt(req.getParameter("catId"));
         int supId = Integer.parseInt(req.getParameter("supId"));
+        String search = req.getParameter("search");
 
-        if (catId != -1 & supId == -1) {
-            ProductCategory category = productCatDataStore.find(catId);
-            products = productDataStore.getBy(category);
-            context.setVariable("category", category);
-        }
-        if (catId == -1 & supId != -1) {
-            Supplier supplier = supplierDataStore.find(supId);
-            products = productDataStore.getBy(supplier);
+        if (!search.equals("")) {
+            products = productDataStore.findBySearch(search);
             context.setVariable("category", productCatDataStore.getAll());
-        }
-        if (catId != -1 & supId != -1) {
-            ProductCategory category = productCatDataStore.find(catId);
-            Supplier supplier = supplierDataStore.find(supId);
-            products = productDataStore.getBy(supplier);
-            context.setVariable("category", category);
+        } else {
 
-        }
-        if (catId == -1 & supId == -1) {
-            resp.sendRedirect("/");
+            if (catId != -1 & supId == -1) {
+                ProductCategory category = productCatDataStore.find(catId);
+                products = productDataStore.getAll();
+                context.setVariable("category", category);
+            }
+            if (catId == -1 & supId != -1) {
+                Supplier supplier = supplierDataStore.find(supId);
+                products = productDataStore.getBy(supplier);
+                context.setVariable("category", productCatDataStore.getAll());
+            }
+            if (catId != -1 & supId != -1) {
+                ProductCategory category = productCatDataStore.find(catId);
+                Supplier supplier = supplierDataStore.find(supId);
+                products = productDataStore.getBy(supplier);
+                context.setVariable("category", category);
+
+            }
+            if (catId == -1 & supId == -1) {
+                resp.sendRedirect("/");
+            }
         }
         context.setVariable("products", products);
         engine.process("product/index.html", context, resp.getWriter());
-
-
     }
 }
